@@ -12,20 +12,24 @@
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
 import path from 'path'
 
-// .env.shared から GEMINI_API_KEY を拾う(lineclaude agent と同じ場所)
+// 兄弟プロジェクトの env から GEMINI_API_KEY を拾う(漏洩済 key は飛ばす)
+// 既に env に値があれば上書きしないので、明示的に渡された env が常に優先される
 function loadEnv() {
   const candidates = [
     path.resolve(process.cwd(), '.env'),
     path.resolve(process.cwd(), '.env.local'),
+    path.resolve(process.cwd(), '../roblox/.env'),
+    path.resolve(process.cwd(), '../kyoutsu-roblox/.env'),
     path.resolve(process.cwd(), '../lineclaude/agent/.env.shared'),
     path.resolve(process.env.HOME || process.env.USERPROFILE || '', 'shimanto-projects/lineclaude/agent/.env.shared'),
   ]
   for (const p of candidates) {
-    if (existsSync(p)) {
-      const lines = readFileSync(p, 'utf-8').split('\n')
-      for (const line of lines) {
-        const m = line.match(/^([A-Z_]+)=(.*)$/)
-        if (m) process.env[m[1]] = m[2].trim()
+    if (!existsSync(p)) continue
+    const lines = readFileSync(p, 'utf-8').split(/\r?\n/)
+    for (const line of lines) {
+      const m = line.match(/^\s*([A-Z][A-Z0-9_]*)\s*=\s*(.*?)\s*$/)
+      if (m && !process.env[m[1]]) {
+        process.env[m[1]] = m[2].replace(/^['"]|['"]$/g, '')
       }
     }
   }
