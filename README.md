@@ -1,78 +1,106 @@
-# 焙 HOU (ほう) — 焙煎玄米ブランド資料サイト
+# 玄米茶ちゃん (genmaicha-project)
 
-宮城県・焙煎玄米専業の老舗から独立する、20代女性経営者(仮名: 玄米茶ちゃん)による新規ブランド「**焙 HOU**」の事業構想を、
-商工会議所・地域金融機関・卸先・メディア向けに共有するための公開プレビューサイトです。
+> 焙煎玄米の老舗を、世界へ。
 
-**コードネーム**: `genmaicha-project`
+宮城の小さな焙煎工場(玄米茶用 焙煎玄米メーカー)4 代目「玄米茶ちゃん」(20代の女性経営者、ニックネーム)が、
+母と二人で守る老舗を、新ブランド「**玄米茶ちゃん**」としてリブランドし、海外市場および新しい小売カテゴリーへと広げていくための
+**LP + 漫画 + 事業計画 + 10 の施策** を 1 サイトで共有する公式 Web サイト。
 
-## 主な構成
+**リポジトリ / プロジェクト名**: `genmaicha-project` / 公開 URL: `genmaicha-project.pages.dev`
 
-| ページ | 内容 |
-|--------|------|
-| トップ | ブランドコンセプト / 商品 / 将来の小売商品構想 / QR導線 |
-| 事業説明スライド | 6枚構成の事業コンセプト〜スケーリング |
-| カテゴリー分析 | 日本茶カテゴリー構造とHOUのポジショニング |
-| 海外需要 | エリア別(北米/欧州/東南アジア)の需要分析 |
-| 価格比較 | 国内 vs 海外のチャネル別価格レンジと戦略 |
-| 施策10選 | スモールスタート施策10個(各独立ページ) |
-| 漫画 | nano banana pro で生成した 6コマ短編漫画 |
-| 資料 | ブランドコンセプト / 事業計画 / 運用チェックリスト 等 |
+---
+
+## 機能
+
+- **LP (ランディングページ)**: ブランドコンセプト・3 つの軸・QR コード・商工会議所/金融機関向けメッセージ・商品ラインナップ構想(将来の小売商品を含む)
+- **漫画**: 4 代目「玄米茶ちゃん」の継ぎ方 — 全 6 話(`nano-banana-pro` で生成)
+- **事業説明**: 現状・課題・「玄米茶ちゃん」ブランドが解こうとしている問い
+- **カテゴリー調査**: 玄米茶カテゴリの構造分解と当社のニッチ
+- **海外需要**: 北米・欧州・アジア別ファクトシート
+- **価格比較**: 国内卸 / 国内 D2C / 越境 EC のユニットエコノミクス
+- **10 の施策**: スモールスタート可能な独立施策 10 個(各詳細ページ)
+- **資料**: 事業計画書・ブランドガイド・商品開発ロードマップ・OEM 雛形・輸出チェックリスト
+
+認証ゲートはありません(資料は公開前提のドラフトとして扱います)。
+
+---
 
 ## 技術スタック
 
-- React 18 / TypeScript 5 / Vite 5
-- Tailwind CSS 3
-- Cloudflare Pages (GitHub Actions 経由で自動デプロイ)
+- Vite + React 18 + TypeScript + Tailwind CSS v3
+- Cloudflare Pages (GitHub Actions 自動デプロイ)
+- 漫画/OGP/カバー画像: Google Gemini `nano-banana-pro-preview`
 
-## ローカル開発
+---
+
+## 開発
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:5173
-pnpm build      # dist/ にビルド出力
-pnpm typecheck  # 型チェックのみ
+pnpm dev       # 開発サーバ
+pnpm build     # ビルド
+pnpm typecheck # 型チェック
 ```
 
-## 公開
+---
 
-認証は設けていません(機密情報を含まない公開プレビューの前提)。
+## 漫画・OGP 画像生成
+
+`agent/` 内に nano-banana-pro 用の Node スクリプトを置いています。
+
+```bash
+# 全6話の漫画ページを生成
+node agent/generate-manga.js
+
+# 特定の1話のみ再生成
+node agent/generate-manga.js 3
+
+# LP 用カバー画像
+node agent/generate-cover.js
+
+# OGP 画像
+node agent/generate-ogp.js
+```
+
+`GEMINI_API_KEY` は以下のいずれかから自動でロードします:
+- `genmaicha-project/.env`
+- `~/shimanto-projects/lineclaude/agent/.env.shared`(共通 API キー置き場)
+
+---
 
 ## デプロイ
 
-`main` ブランチに push すると GitHub Actions が起動し、Cloudflare Pages プロジェクト
-`genmaicha-project` にデプロイされます。
+`main` ブランチへの push で Cloudflare Pages に自動デプロイされます(`.github/workflows/deploy.yml`)。
 
-- 公開URL: https://genmaicha-project.pages.dev/
-- リポジトリ: https://github.com/shimanto/genmaicha-project
+### 必要な GitHub Secrets
 
-必要な GitHub Secrets:
+- `CLOUDFLARE_API_TOKEN` — Cloudflare API Token (Pages:Edit 権限)
+- `CLOUDFLARE_ACCOUNT_ID` — Cloudflare Account ID
 
-- `CLOUDFLARE_API_TOKEN` (Pages:Edit 権限)
-- `CLOUDFLARE_ACCOUNT_ID`
+### Cloudflare Pages プロジェクトの事前作成
 
-初回のみ、Cloudflare ダッシュボードで `genmaicha-project` という名前の Pages プロジェクトを作成してください。以降は自動デプロイされます。
+初回のみ、Cloudflare ダッシュボードで `genmaicha-project` という名前の Pages プロジェクトを作成してください。
+以降は自動デプロイされます。
 
-## 漫画画像の生成
+---
 
-6コマ漫画の実画像は `scripts/generate-manga.mjs` から `nano-banana-pro-preview` で自動生成し、
-`public/manga/panel-01.png` 〜 `panel-06.png` に保存されます。
+## ドキュメント (構想ドラフト一覧)
 
-```bash
-# lineclaude/agent/.env.shared の GEMINI_API_KEY を利用します
-node scripts/generate-manga.mjs
-```
+- `docs/business-overview.md` — 事業説明
+- `docs/category-research.md` — カテゴリー調査
+- `docs/global-demand.md` — 海外需要
+- `docs/pricing-comparison.md` — 価格比較
+- `docs/business-plan.md` — 事業計画書ドラフト
+- `docs/brand-guidelines.md` — ブランドガイドライン
+- `docs/product-roadmap.md` — 商品開発ロードマップ(小売拡張構想を含む)
+- `docs/oem-contract-template.md` — OEM/法人ノベルティ提案 雛形
+- `docs/export-checklist.md` — 輸出チェックリスト
+- `docs/initiatives/01-direct-d2c.md` 〜 `10-corporate-oem.md` — 10 の施策
 
-## ドキュメント
+---
 
-`docs/` 配下の Markdown は `Documents` ページから閲覧できます。
+## 改名メモ
 
-- `brand-concept.md` — ブランドコンセプト / バリュー / ラインナップ / 将来の小売商品構想
-- `business-plan.md` — 事業計画(市場・チャネル・体制・ファイナンス)
-- `operations-checklist.md` — 母娘2名体制の週次運用ルール
-- `nano-banana-prompts.md` — 漫画・キービジュアル生成の共通プロンプト
-
-## 補足
-
-- 本サイトに記載の市場規模・価格レンジ・成長率は、公開情報を元にした概算です。
-- 登場人物は全員、実在の関係者を特定しないための仮名です(主人公: 玄米茶ちゃん)。
-- 数値は実行時点で再計測・再設計することを前提としています。
+本プロジェクトは仮ブランド名「紡 TSUMUGI」から「**玄米茶ちゃん**」へ改名しました。
+「玄米茶ちゃん」は20代女性経営者のニックネームであり、そのままブランド/マスコットとして機能させる設計です。
+ロゴ・商標は商標調査を経て正式化予定。

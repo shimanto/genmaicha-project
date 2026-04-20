@@ -1,28 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
   <defs>
-    <linearGradient id="hou-bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#3d220f" />
-      <stop offset="100%" stop-color="#814a1b" />
+    <linearGradient id="gc-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#964c1c" />
+      <stop offset="100%" stop-color="#341a09" />
     </linearGradient>
-    <radialGradient id="hou-grain" cx="50%" cy="55%" r="45%">
-      <stop offset="0%" stop-color="#fdf8f1" />
-      <stop offset="70%" stop-color="#e8bd78" />
-      <stop offset="100%" stop-color="#a4621e" />
-    </radialGradient>
+    <linearGradient id="gc-grain" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f3d8aa" />
+      <stop offset="100%" stop-color="#dc9a47" />
+    </linearGradient>
   </defs>
 
-  <rect width="100" height="100" rx="20" fill="url(#hou-bg)" />
+  <rect width="100" height="100" rx="20" fill="url(#gc-bg)" />
 
-  <!-- Rice grain (stylized) -->
-  <ellipse cx="50" cy="50" rx="24" ry="14" fill="url(#hou-grain)" transform="rotate(-20 50 50)" />
-  <path d="M 32 45 Q 50 55 68 45" stroke="#3d220f" stroke-width="2" fill="none" transform="rotate(-20 50 50)" />
+  <!-- 玄米粒 (3粒) -->
+  <ellipse cx="35" cy="38" rx="9" ry="14" fill="url(#gc-grain)" transform="rotate(-15 35 38)" />
+  <ellipse cx="50" cy="44" rx="9" ry="14" fill="url(#gc-grain)" />
+  <ellipse cx="65" cy="38" rx="9" ry="14" fill="url(#gc-grain)" transform="rotate(15 65 38)" />
 
-  <!-- Kanji "焙" simplified dot accent -->
-  <circle cx="78" cy="28" r="5" fill="#6f8f3f" />
-  <circle cx="22" cy="72" r="3" fill="#faeedb" opacity="0.7" />
+  <!-- 抹茶緑のアクセント線 -->
+  <line x1="22" y1="66" x2="78" y2="66" stroke="#7d9c46" stroke-width="2" stroke-linecap="round" />
 
-  <!-- Letter HOU -->
-  <text x="50" y="92" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="700" fill="#faeedb" letter-spacing="2">
-    HOU
+  <!-- 玄米茶ちゃん のレタリング -->
+  <text x="50" y="90" text-anchor="middle" font-family="serif" font-size="13" font-weight="700" fill="#fdf8f0" letter-spacing="1">
+    玄米茶ちゃん
   </text>
 </svg>
