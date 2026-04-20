@@ -1,5 +1,5 @@
 /**
- * 紡 TSUMUGI — OGP 画像生成 (1200x630)
+ * 玄米茶ちゃん — OGP 画像生成 (1200x630)
  * 出力: public/ogp.png
  */
 import { writeFileSync, readFileSync, existsSync, mkdirSync } from 'fs'
@@ -38,7 +38,7 @@ const PROMPT = `
 レイアウト:
   - 左側 (60%): 焙煎玄米が入った木の升と、湯気が立ち上る玄米茶の湯飲み。
     背景には和紙の壁と、ぼやけた焙煎釜のシルエット。
-  - 右側 (40%): 大きな和文タイトル「紡 TSUMUGI」(明朝体 / 琥珀色 #964c1c)。
+  - 右側 (40%): 大きな和文タイトル「玄米茶ちゃん」(明朝体 / 琥珀色 #964c1c)。
     その下に小さく「焙煎玄米の老舗を、世界へ。」(墨色)。
     最下部に小さな英文 "Roasted Brown Rice — Miyagi, Japan"。
 色味: 琥珀色 #964c1c、抹茶緑 #7d9c46、和紙クリーム #faf4e5、墨色 #1a1a1a。

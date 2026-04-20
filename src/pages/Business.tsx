@@ -15,7 +15,7 @@ export default function Business() {
           事業説明
         </h1>
         <p className="mt-1 text-sm text-brand-800/80 md:text-base">
-          現在の老舗事業 / 課題 / 新ブランド「紡」が解こうとしている問い。
+          現在の老舗事業 / 課題 / 新ブランド「玄米茶ちゃん」が解こうとしている問い。
         </p>
       </header>
 

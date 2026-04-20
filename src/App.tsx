@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import LandingPage from './pages/LandingPage'
-import Login from './pages/Login'
 import Manga from './pages/Manga'
 import Business from './pages/Business'
 import Category from './pages/Category'
@@ -32,8 +31,6 @@ const NAV: { key: Exclude<Page, { kind: string }>; label: string }[] = [
   { key: 'documents', label: '資料' },
 ]
 
-const AUTH_KEY = 'genmaicha-brand:auth'
-
 function pageFromHash(): Page {
   const h = window.location.hash.replace('#', '')
   if (h.startsWith('initiative/')) {
@@ -59,9 +56,6 @@ function pageKey(p: Page): string {
 }
 
 export default function App() {
-  const [authed, setAuthed] = useState<boolean>(
-    () => sessionStorage.getItem(AUTH_KEY) === '1',
-  )
   const [page, setPageState] = useState<Page>(pageFromHash)
 
   const setPage = (p: Page) => {
@@ -80,15 +74,6 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handler)
   }, [])
 
-  if (!authed) {
-    return <Login onLogin={() => setAuthed(true)} />
-  }
-
-  const logout = () => {
-    sessionStorage.removeItem(AUTH_KEY)
-    setAuthed(false)
-  }
-
   const activeKey: string = typeof page === 'string' ? page : 'initiatives'
 
   return (
@@ -99,24 +84,26 @@ export default function App() {
             <button
               onClick={() => setPage('lp')}
               className="flex items-center gap-2 text-brand-900"
-              aria-label="紡 TSUMUGI トップ"
+              aria-label="玄米茶ちゃん トップ"
             >
               <img src="/favicon.svg" alt="" className="h-8 w-8 md:h-9 md:w-9" />
               <span className="flex flex-col items-start leading-none">
-                <span className="font-serif text-sm font-bold tracking-[0.18em] md:text-base">
-                  紡 TSUMUGI
+                <span className="font-serif text-sm font-bold tracking-[0.12em] md:text-base">
+                  玄米茶ちゃん
                 </span>
                 <span className="mt-0.5 text-[9px] text-brand-700/80 md:text-[10px]">
                   焙煎玄米の老舗を、世界へ。
                 </span>
               </span>
             </button>
-            <button
-              onClick={logout}
+            <a
+              href="https://github.com/shimanto/genmaicha-project"
+              target="_blank"
+              rel="noreferrer"
               className="rounded-md border border-washi-200 bg-white px-2.5 py-1 text-[10px] font-medium text-brand-700 hover:bg-washi-100 md:px-3 md:py-2 md:text-xs"
             >
-              ログアウト
-            </button>
+              GitHub
+            </a>
           </div>
           <nav className="mt-2 -mx-4 flex gap-1 overflow-x-auto px-4 pb-0.5 md:mx-0 md:mt-3 md:px-0 md:pb-0 scrollbar-none">
             {NAV.map((n) => (
@@ -156,10 +143,8 @@ export default function App() {
       </main>
       <footer className="border-t border-washi-200 bg-white">
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 text-xs text-brand-800/70 md:flex-row md:items-center md:justify-between md:px-6">
-          <div>© 2026 紡 TSUMUGI | 焙煎玄米の老舗を、世界へ。</div>
-          <div className="text-[11px] text-brand-700/50">
-            powered by AKANE Partners 系 / Built with Claude Code
-          </div>
+          <div>© 2026 玄米茶ちゃん | 焙煎玄米の老舗を、世界へ。</div>
+          <div className="text-[11px] text-brand-700/50">Built with Claude Code</div>
         </div>
       </footer>
     </div>

@@ -20,7 +20,7 @@ export default function LandingPage({ onNavigate }: Props) {
   const siteUrl =
     typeof window !== 'undefined'
       ? `${window.location.origin}${window.location.pathname}`
-      : 'https://genmaicha-tanpo.pages.dev/'
+      : 'https://genmaicha-project.pages.dev/'
 
   useEffect(() => {
     QRCode.toDataURL(siteUrl, {
@@ -43,14 +43,14 @@ export default function LandingPage({ onNavigate }: Props) {
           <div className="mb-4 flex items-center gap-2 md:mb-6">
             <div className="h-px w-8 bg-brand-200 md:w-12" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-100 md:text-xs">
-              TSUMUGI 紡
+              GENMAICHA-CHAN
             </span>
           </div>
           <h1 className="mb-4 font-serif text-3xl font-bold leading-tight md:mb-6 md:text-5xl">
             焙煎玄米の老舗を、
             <br />
             <span className="bg-gradient-to-r from-brand-100 to-brand-300 bg-clip-text text-transparent">
-              世界へ紡ぐ。
+              世界へ届ける。
             </span>
           </h1>
           <p className="mb-3 text-sm text-brand-50 md:mb-4 md:text-lg">
@@ -58,8 +58,8 @@ export default function LandingPage({ onNavigate }: Props) {
           </p>
           <p className="mb-6 text-xs leading-relaxed text-brand-100/90 md:mb-8 md:text-base">
             宮城の小さな焙煎工場で、祖父祖母から受け継いだ「玄米茶用 焙煎玄米」専業メーカー。
-            4代目・松永つむぎが、母と二人三脚で守ってきた老舗を、
-            既存事業を止めずに玄米茶ブランドへとリブランドし、海外市場へと紡ぎ直していく構想です。
+            4代目・<strong className="text-white">玄米茶ちゃん</strong>(20代の女性経営者)が、母と二人三脚で守ってきた老舗を、
+            既存事業を止めずに玄米茶ブランドへとリブランドし、海外市場と新しい小売カテゴリーへと広げていく構想です。
           </p>
           <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap md:gap-3">
             <button
@@ -93,7 +93,7 @@ export default function LandingPage({ onNavigate }: Props) {
       {/* Story / 3 strengths */}
       <section>
         <h2 className="mb-5 text-xl font-bold text-brand-900 md:mb-8 md:text-2xl">
-          「紡」3つの軸
+          「玄米茶ちゃん」3つの軸
         </h2>
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
           <Card
@@ -102,11 +102,11 @@ export default function LandingPage({ onNavigate }: Props) {
           />
           <Card
             title="既存事業を止めない継承"
-            body="お茶問屋への卸はそのまま継続。新ブランド「紡」は休日と早朝の余剰時間でスモールスタート。資金とリソースを最小化した二刀流。"
+            body="お茶問屋への卸はそのまま継続。新ブランド「玄米茶ちゃん」は休日と早朝の余剰時間でスモールスタート。資金とリソースを最小化した二刀流。"
           />
           <Card
-            title="海外への紡ぎ直し"
-            body="Genmaichaは欧米でじわじわ伸長中。和食ブームと健康志向に乗せ、Etsy・Amazon Global・越境ECで小ロットから世界へ。"
+            title="海外と小売への拡張"
+            body="Genmaichaは欧米でじわじわ伸長中。和食ブーム・健康志向に乗せ、越境ECと小売カテゴリー(ラテ/菓子/料理)まで段階拡張。"
           />
         </div>
       </section>
@@ -133,7 +133,7 @@ export default function LandingPage({ onNavigate }: Props) {
           <div className="aspect-[4/5] bg-gradient-to-br from-brand-100 via-washi-100 to-matcha-100 md:aspect-auto">
             <img
               src="/manga/cover.png"
-              alt="紡 漫画 — 4代目つむぎの挑戦"
+              alt="玄米茶ちゃん 漫画 — 4代目の挑戦"
               className="h-full w-full object-cover"
               onError={(e) => {
                 ;(e.currentTarget as HTMLImageElement).style.display = 'none'
@@ -145,7 +145,7 @@ export default function LandingPage({ onNavigate }: Props) {
               MANGA
             </div>
             <h2 className="mb-3 font-serif text-xl font-bold text-brand-900 md:text-3xl">
-              4代目つむぎの紡ぎ方。
+              玄米茶ちゃんの継ぎ方。
             </h2>
             <p className="mb-5 text-sm leading-relaxed text-brand-800 md:text-base">
               祖父母から受け継いだ焙煎工場。母と二人で1釜を回す日々。
@@ -158,6 +158,182 @@ export default function LandingPage({ onNavigate }: Props) {
               漫画を読む →
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* 商品ラインナップ(将来の小売商品構想込み) */}
+      <section>
+        <div className="mb-4 flex items-end justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-brand-900 md:text-2xl">商品ラインナップ構想</h2>
+            <p className="mt-1 text-xs text-brand-800/70 md:text-sm">
+              既存2種の焙煎玄米から、段階的に茶飲料・菓子・料理用・小売カテゴリーまで広げる構想。
+            </p>
+          </div>
+          <button
+            onClick={() => onNavigate('documents')}
+            className="hidden flex-shrink-0 rounded-md border border-brand-200 bg-white px-3 py-1.5 text-xs text-brand-700 hover:bg-washi-100 md:inline-block"
+          >
+            ロードマップ詳細 →
+          </button>
+        </div>
+
+        <div className="mb-6 grid gap-3 md:grid-cols-4 md:gap-4">
+          <PhasePill phase="Phase 0" when="0-3ヶ月" title="立ち上げ4SKU" color="brand" />
+          <PhasePill phase="Phase 1" when="3-9ヶ月" title="ギフト + 海外" color="brand" />
+          <PhasePill phase="Phase 2" when="9-18ヶ月" title="料理用 + OEM" color="matcha" />
+          <PhasePill phase="Phase 3-4" when="18ヶ月〜" title="小売 + 飲料" color="matcha" />
+        </div>
+
+        <div className="grid gap-3 md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+          {/* Phase 0 */}
+          <ProductCard
+            phase="P0"
+            cat="基幹"
+            title="中焙煎 焙煎玄米 50g"
+            body="玄米茶用と同等焙煎度を単品袋詰め。エントリー価格¥780。"
+            status="existing"
+          />
+          <ProductCard
+            phase="P0"
+            cat="基幹"
+            title="深煎り 焙煎玄米 50g"
+            body="香ばしさ強めの飲料・料理用。¥820。"
+            status="existing"
+          />
+          <ProductCard
+            phase="P0"
+            cat="入口"
+            title="テイスティングセット"
+            body="中焙煎/深煎り/抹茶混合/塩玄米 各5g×4袋。¥980。"
+            status="existing"
+          />
+          <ProductCard
+            phase="P0"
+            cat="定番"
+            title="ティーバッグ 30入"
+            body="中焙煎ベース / オフィス・贈答。¥1,800。"
+            status="existing"
+          />
+
+          {/* Phase 1 */}
+          <ProductCard
+            phase="P1"
+            cat="海外"
+            title="越境EC 英語表記版 50g"
+            body="中焙煎 / 深煎り / 海外向けクラフト紙。$12〜。"
+            status="planned"
+          />
+          <ProductCard
+            phase="P1"
+            cat="ギフト"
+            title="ギフトボックス 国内/海外"
+            body="100g×2 + ストーリーカード/英語ガイド。¥3,200 / $42〜。"
+            status="planned"
+          />
+          <ProductCard
+            phase="P1"
+            cat="自治体"
+            title="ふるさと納税パッケージ"
+            body="50g×2 + 自治体ロゴ入り。¥1,500相当。"
+            status="planned"
+          />
+
+          {/* Phase 2 */}
+          <ProductCard
+            phase="P2"
+            cat="料理"
+            title="料理用 粉砕タイプ 100g"
+            body="出汁・トッピング用途。¥1,200。"
+            status="planned"
+          />
+          <ProductCard
+            phase="P2"
+            cat="料理"
+            title="焙煎玄米塩ふりかけ 60g"
+            body="玄米 + 海塩 + ごま。食品売場・カフェ向け。¥980。"
+            status="planned"
+          />
+          <ProductCard
+            phase="P2"
+            cat="BtoB"
+            title="法人OEM(個包装・ラベル)"
+            body="周年・株主優待・結婚式。個別見積。"
+            status="planned"
+          />
+          <ProductCard
+            phase="P2"
+            cat="BtoB"
+            title="カフェ業務用 1kg バルク"
+            body="ノンカフェイン提案でカフェチャネル開拓。¥6,000〜。"
+            status="planned"
+          />
+
+          {/* Phase 3-4 future retail concepts */}
+          <ProductCard
+            phase="P3"
+            cat="飲料"
+            title="焙煎玄米ラテ原料"
+            body="豆乳・オーツミルクと合わせる濃縮パウダー。カフェ/D2Cへ。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P3"
+            cat="飲料"
+            title="RTD 玄米茶(ボトル)"
+            body="地元ボトラーOEMで自販機/コンビニ棚を狙う常温飲料。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P3"
+            cat="フレーバー"
+            title="フレーバー玄米茶シリーズ"
+            body="柚子 / 桜 / ほうじ茶ブレンド / 山椒など季節限定。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P3"
+            cat="菓子"
+            title="玄米クランチ グラノーラ"
+            body="焙煎玄米+ナッツ+はちみつ。朝食カテゴリ参入。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P3"
+            cat="菓子"
+            title="玄米チョコ / 玄米キャラメル"
+            body="県内菓子メーカーとのコラボ商品。土産・百貨店・海外向け。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P4"
+            cat="冷"
+            title="玄米茶ソフトクリーム原料"
+            body="道の駅・直営POPUPでの看板スイーツ。観光客向け。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P4"
+            cat="健康"
+            title="玄米茶プロテイン / 玄米コーヒー代替"
+            body="カフェイン控えめ・香ばしさ。健康・ヴィーガン文脈で海外狙い。"
+            status="concept"
+          />
+          <ProductCard
+            phase="P4"
+            cat="コラボ"
+            title="地場コラボ(焼酎 / クラフトビール)"
+            body="宮城の蔵元・ブルワリーと限定ロット。酒販&越境EC。"
+            status="concept"
+          />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-washi-200 bg-washi-50/70 p-3 text-[11px] leading-relaxed text-brand-800/75 md:p-4 md:text-xs">
+          <strong className="text-brand-800">凡例:</strong>{' '}
+          <span className="font-semibold text-brand-800">既存</span> = 現行商品 /{' '}
+          <span className="font-semibold text-brand-800">計画</span> = 事業計画に明記済 /{' '}
+          <span className="font-semibold text-brand-800">構想</span> = 18ヶ月以降の小売・飲料・コラボ拡張アイデア。
+          実装順は商工会議所・金融機関・パートナー候補の反応を見ながら前後します。
         </div>
       </section>
 
@@ -198,7 +374,7 @@ export default function LandingPage({ onNavigate }: Props) {
             {qrDataUrl ? (
               <img
                 src={qrDataUrl}
-                alt="紡 TSUMUGI QRコード"
+                alt="玄米茶ちゃん QRコード"
                 className="h-44 w-44 md:h-52 md:w-52"
               />
             ) : (
@@ -305,6 +481,69 @@ function InvCard({ title, body }: { title: string; body: string }) {
     <div className="rounded-lg bg-brand-800 p-4">
       <div className="text-xs font-medium uppercase tracking-wide text-brand-200">{title}</div>
       <div className="mt-1 font-semibold text-white">{body}</div>
+    </div>
+  )
+}
+
+function PhasePill({
+  phase,
+  when,
+  title,
+  color,
+}: {
+  phase: string
+  when: string
+  title: string
+  color: 'brand' | 'matcha'
+}) {
+  const palette =
+    color === 'brand'
+      ? 'border-brand-300/70 bg-brand-50 text-brand-900'
+      : 'border-matcha-300/70 bg-matcha-50 text-matcha-900'
+  return (
+    <div className={`rounded-xl border px-3 py-3 text-center ${palette}`}>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.18em] opacity-70 md:text-xs">
+        {phase}
+      </div>
+      <div className="mt-1 font-serif text-sm font-bold md:text-base">{title}</div>
+      <div className="mt-0.5 text-[10px] opacity-70 md:text-xs">{when}</div>
+    </div>
+  )
+}
+
+type ProductStatus = 'existing' | 'planned' | 'concept'
+function ProductCard({
+  phase,
+  cat,
+  title,
+  body,
+  status,
+}: {
+  phase: string
+  cat: string
+  title: string
+  body: string
+  status: ProductStatus
+}) {
+  const badge =
+    status === 'existing'
+      ? { text: '既存', cls: 'bg-brand-700 text-white' }
+      : status === 'planned'
+        ? { text: '計画', cls: 'bg-brand-200 text-brand-900' }
+        : { text: '構想', cls: 'bg-matcha-100 text-matcha-900 border border-matcha-300/60' }
+  return (
+    <div className="relative rounded-xl border border-washi-200 bg-white p-4 shadow-sm md:p-5">
+      <div className="mb-2 flex items-center gap-2">
+        <span className="rounded bg-washi-100 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-brand-700">
+          {phase}
+        </span>
+        <span className="text-[10px] uppercase tracking-[0.15em] text-brand-700/70">{cat}</span>
+        <span className={`ml-auto rounded-full px-2 py-0.5 text-[10px] font-semibold ${badge.cls}`}>
+          {badge.text}
+        </span>
+      </div>
+      <h3 className="font-serif text-sm font-bold text-brand-900 md:text-base">{title}</h3>
+      <p className="mt-1 text-[12px] leading-relaxed text-brand-800/90 md:text-sm">{body}</p>
     </div>
   )
 }

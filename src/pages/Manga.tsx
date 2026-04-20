@@ -28,8 +28,8 @@ const PAGES: Page[] = [
     image: '/manga/page-04.png',
   },
   {
-    title: '第5話 — 紡という名前',
-    caption: '祖父祖母から受け継いだものを、世界へ紡ぎ直す。',
+    title: '第5話 — 「玄米茶ちゃん」という名前',
+    caption: '祖父祖母から受け継いだものを、世界へ繋ぎ直す。',
     image: '/manga/page-05.png',
   },
   {
@@ -97,7 +97,7 @@ export default function Manga() {
           </span>
         </div>
         <h1 className="font-serif text-2xl font-bold text-brand-900 md:text-3xl">
-          4代目つむぎの紡ぎ方
+          4代目・玄米茶ちゃんの継ぎ方
         </h1>
         <p className="mt-1 text-xs text-brand-800/70 md:text-sm">
           縦スクロールで全6話を閲覧できます。挿絵は nano-banana-pro で生成しています。

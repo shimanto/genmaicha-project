@@ -30,7 +30,7 @@ const DOCS: DocItem[] = [
   {
     key: 'brand',
     title: 'ブランドガイドライン',
-    subtitle: '紡 TSUMUGI のロゴ・色・トーン',
+    subtitle: '玄米茶ちゃんのロゴ・色・トーン',
     category: 'BRAND',
     md: brandGuidelinesMd,
     icon: '◇',
@@ -92,7 +92,7 @@ export default function Documents() {
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-300/60" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-700 md:text-xs md:tracking-[0.3em]">
-              Private Documents
+              Project Documents
             </span>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-300/60" />
           </div>
@@ -100,7 +100,7 @@ export default function Documents() {
             事業資料 アーカイブ
           </h1>
           <p className="mt-2 text-center text-[11px] text-brand-800/70 md:mt-3 md:text-sm">
-            Confidential — For Authorized Personnel Only
+            事業計画・ブランドガイド・商品ロードマップ・OEM雛形・輸出チェックリスト
           </p>
         </header>
 
@@ -206,7 +206,7 @@ export default function Documents() {
               />
 
               <div className="mt-10 border-t border-washi-200 pt-5 text-center text-[10px] text-brand-800/50 md:mt-12 md:pt-6 md:text-xs">
-                — 紡 TSUMUGI / Confidential —
+                — 玄米茶ちゃん / 構想ドラフト —
               </div>
             </article>
 
