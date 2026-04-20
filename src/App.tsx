@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import LandingPage from './pages/LandingPage'
 import Manga from './pages/Manga'
+import BizStory from './pages/BizStory'
+import Shop from './pages/Shop'
 import Business from './pages/Business'
 import Category from './pages/Category'
 import Global from './pages/Global'
@@ -12,6 +14,8 @@ import Documents from './pages/Documents'
 type Page =
   | 'lp'
   | 'manga'
+  | 'bizstory'
+  | 'shop'
   | 'business'
   | 'category'
   | 'global'
@@ -20,8 +24,10 @@ type Page =
   | 'documents'
   | { kind: 'initiative'; id: string }
 
-const NAV: { key: Exclude<Page, { kind: string }>; label: string }[] = [
+const NAV: { key: Exclude<Page, { kind: string }>; label: string; accent?: boolean }[] = [
   { key: 'lp', label: 'トップ' },
+  { key: 'shop', label: 'ショップ', accent: true },
+  { key: 'bizstory', label: '事業ストーリー' },
   { key: 'manga', label: '漫画' },
   { key: 'business', label: '事業説明' },
   { key: 'category', label: 'カテゴリー' },
@@ -39,6 +45,8 @@ function pageFromHash(): Page {
   }
   if (
     h === 'manga' ||
+    h === 'bizstory' ||
+    h === 'shop' ||
     h === 'business' ||
     h === 'category' ||
     h === 'global' ||
@@ -106,25 +114,35 @@ export default function App() {
             </a>
           </div>
           <nav className="mt-2 -mx-4 flex gap-1 overflow-x-auto px-4 pb-0.5 md:mx-0 md:mt-3 md:px-0 md:pb-0 scrollbar-none">
-            {NAV.map((n) => (
-              <button
-                key={n.key}
-                onClick={() => setPage(n.key)}
-                className={`flex-shrink-0 rounded-md px-3 py-1.5 text-xs font-medium transition md:px-4 md:py-2 md:text-sm ${
-                  activeKey === n.key
-                    ? 'bg-brand-700 text-white shadow-sm'
-                    : 'text-brand-800 hover:bg-washi-100'
-                }`}
-              >
-                {n.label}
-              </button>
-            ))}
+            {NAV.map((n) => {
+              const isActive = activeKey === n.key
+              const baseClasses =
+                'flex-shrink-0 rounded-md px-3 py-1.5 text-xs font-medium transition md:px-4 md:py-2 md:text-sm'
+              const accent = n.accent && !isActive
+              return (
+                <button
+                  key={n.key}
+                  onClick={() => setPage(n.key)}
+                  className={`${baseClasses} ${
+                    isActive
+                      ? 'bg-brand-700 text-white shadow-sm'
+                      : accent
+                        ? 'bg-matcha-600 text-white hover:bg-matcha-700 shadow-sm'
+                        : 'text-brand-800 hover:bg-washi-100'
+                  }`}
+                >
+                  {n.label}
+                </button>
+              )
+            })}
           </nav>
         </div>
       </header>
       <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-6 md:px-6 md:py-8" key={pageKey(page)}>
         {page === 'lp' && <LandingPage onNavigate={setPage} />}
         {page === 'manga' && <Manga />}
+        {page === 'bizstory' && <BizStory onNavigateShop={() => setPage('shop')} />}
+        {page === 'shop' && <Shop />}
         {page === 'business' && <Business />}
         {page === 'category' && <Category />}
         {page === 'global' && <Global />}

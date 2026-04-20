@@ -4,6 +4,8 @@ import QRCode from 'qrcode'
 type NavTarget =
   | 'lp'
   | 'manga'
+  | 'bizstory'
+  | 'shop'
   | 'business'
   | 'category'
   | 'global'
@@ -63,28 +65,28 @@ export default function LandingPage({ onNavigate }: Props) {
           </p>
           <div className="grid grid-cols-2 gap-2 md:flex md:flex-wrap md:gap-3">
             <button
-              onClick={() => onNavigate('manga')}
+              onClick={() => onNavigate('shop')}
+              className="rounded-lg bg-matcha-500 px-4 py-2.5 text-sm font-semibold text-white shadow hover:bg-matcha-600 md:px-6 md:py-3 md:text-base"
+            >
+              ショップを見る →
+            </button>
+            <button
+              onClick={() => onNavigate('bizstory')}
               className="rounded-lg bg-brand-200 px-4 py-2.5 text-sm font-semibold text-brand-900 shadow hover:bg-brand-100 md:px-6 md:py-3 md:text-base"
+            >
+              事業ストーリー(8コマ)
+            </button>
+            <button
+              onClick={() => onNavigate('manga')}
+              className="rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-brand-800 shadow hover:bg-washi-100 md:px-6 md:py-3 md:text-base"
             >
               漫画で読む
             </button>
             <button
               onClick={() => onNavigate('business')}
-              className="rounded-lg bg-white px-4 py-2.5 text-sm font-semibold text-brand-800 shadow hover:bg-washi-100 md:px-6 md:py-3 md:text-base"
-            >
-              事業説明
-            </button>
-            <button
-              onClick={() => onNavigate('initiatives')}
               className="rounded-lg border border-brand-200/60 bg-brand-900/40 px-4 py-2.5 text-sm font-semibold text-brand-100 shadow hover:bg-brand-900/60 md:px-6 md:py-3 md:text-base"
             >
-              10の施策
-            </button>
-            <button
-              onClick={() => onNavigate('documents')}
-              className="rounded-lg border border-white/40 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 md:px-6 md:py-3 md:text-base"
-            >
-              資料一覧
+              事業説明
             </button>
           </div>
         </div>
