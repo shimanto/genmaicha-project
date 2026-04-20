@@ -1,11 +1,11 @@
 # nano banana pro プロンプト集
 
 本ブランドの漫画・キービジュアルを生成する際の共通プロンプト設計。
-画像生成は [nano banana pro](https://) を想定しています。
+画像生成は [nano banana pro](https://ai.google.dev/) (Gemini 系 `nano-banana-pro-preview`) を想定しています。
 
 ## 共通スタイルトークン
 
-以下を各プロンプト冒頭に共通で付与し、世界観の一貫性を担保します。
+各プロンプト冒頭に共通で付与し、世界観の一貫性を担保します。
 
 ```
 shojo manga style, Japanese manga panel composition,
@@ -14,9 +14,9 @@ ink outlines with screentone shading, hopeful atmosphere,
 consistent character design across panels
 ```
 
-## キャラクター設定(顔の一貫性用)
+## キャラクター設定(仮名 / 顔の一貫性用)
 
-### 松本 穂香 (Honoka)
+### 主人公「玄米茶ちゃん」(20代 女性経営者・仮名)
 
 ```
 female, early 20s, Japanese, shoulder-length dark brown hair with a small ribbon,
@@ -24,7 +24,7 @@ gentle eyes with light brown iris, warm smile, slender build,
 casual work apron over a neutral-tone shirt, small stud earrings
 ```
 
-### 松本 芳江 (Yoshie / 母)
+### お母さん (現役焙煎士)
 
 ```
 female, mid 50s, Japanese, short dark hair with slight grey streaks,
@@ -32,7 +32,7 @@ kind expression, apron over a blouse, work trousers, practical build,
 hands showing years of craft work
 ```
 
-### 商工会議所 経営指導員
+### 商工会議所 指導員さん
 
 ```
 male, late 40s, Japanese, neat short hair, glasses,
@@ -49,7 +49,7 @@ Panel 1 〜 Panel 6 のプロンプトは `src/pages/Manga.tsx` の `PANELS` 配
 
 ```
 cinematic wide shot of a small traditional Japanese roasting factory in Miyagi at dawn,
-warm orange glow from a large roasting drum, a young woman (Honoka) and her mother
+warm orange glow from a large roasting drum, a young woman (20s) and her mother
 standing side by side looking out a window, steam rising, roasted brown rice grains
 scattered on a wooden counter, poster-like composition, warm amber and sepia palette,
 no text, 16:9 aspect ratio
@@ -80,3 +80,4 @@ studio photo lighting, slight shadow, centered composition, no background clutte
 2. 出力から"宮城の空気"に合うものを選定(過度に豪華・欧風な雰囲気は避ける)
 3. 採用画像はリポジトリの `public/manga/` / `public/hero/` / `public/ogp/` に分類配置
 4. 採用時は本ファイルに生成日とプロンプトのバリエーションを追記して履歴化
+5. 主人公は常に「玄米茶ちゃん(20代 女性経営者・仮名)」として描写する

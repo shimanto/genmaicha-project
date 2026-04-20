@@ -84,7 +84,7 @@ export default function Documents() {
           <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-500/40" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-300 md:text-xs md:tracking-[0.3em]">
-              Private Documents
+              Project Documents
             </span>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-500/40" />
           </div>
@@ -92,7 +92,7 @@ export default function Documents() {
             事業資料アーカイブ
           </h1>
           <p className="mt-2 text-center text-[11px] text-stone-400 md:mt-3 md:text-sm">
-            Confidential — For Authorized Viewers Only
+            Open Preview — 構想段階の資料です
           </p>
         </header>
 
@@ -201,7 +201,7 @@ export default function Documents() {
               />
 
               <div className="mt-10 border-t border-stone-800 pt-5 text-center text-[10px] text-stone-600 md:mt-12 md:pt-6 md:text-xs">
-                — 焙 HOU / Confidential —
+                — 焙 HOU / Open Preview —
               </div>
             </article>
 

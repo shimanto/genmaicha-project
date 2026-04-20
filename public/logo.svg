@@ -1,41 +1,45 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" width="480" height="120" role="img" aria-label="Akane Partners">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 120" width="480" height="120" role="img" aria-label="HOU 焙">
   <defs>
-    <linearGradient id="akane-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0c4a6e" />
-      <stop offset="50%" stop-color="#c85c5c" />
-      <stop offset="100%" stop-color="#f59e0b" />
+    <linearGradient id="hou-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="60%" stop-color="#a16207" />
+      <stop offset="100%" stop-color="#84cc16" />
     </linearGradient>
-    <linearGradient id="akane-mark" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#f59e0b" />
-      <stop offset="100%" stop-color="#c85c5c" />
-    </linearGradient>
+    <radialGradient id="hou-ember" cx="50%" cy="55%" r="55%">
+      <stop offset="0%" stop-color="#fcd34d" />
+      <stop offset="60%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#3d220f" />
+    </radialGradient>
   </defs>
 
-  <!-- Mark: A stylized bridge/sunset arc -->
-  <g transform="translate(20, 20)">
-    <!-- Horizon line -->
-    <line x1="0" y1="70" x2="80" y2="70" stroke="#0c4a6e" stroke-width="2" stroke-linecap="round" />
-    <!-- Sun / dusk circle -->
-    <circle cx="40" cy="50" r="22" fill="url(#akane-mark)" opacity="0.95" />
-    <!-- Bridge arc -->
-    <path d="M 6 70 Q 40 20 74 70" fill="none" stroke="#0c4a6e" stroke-width="3" stroke-linecap="round" />
-    <!-- Anchor dots -->
-    <circle cx="6" cy="70" r="3" fill="#0c4a6e" />
-    <circle cx="74" cy="70" r="3" fill="#0c4a6e" />
+  <g transform="translate(20, 18)">
+    <ellipse cx="42" cy="82" rx="34" ry="4" fill="#3d220f" opacity="0.25" />
+    <circle cx="42" cy="44" r="32" fill="url(#hou-ember)" />
+    <circle cx="42" cy="44" r="32" fill="none" stroke="#3d220f" stroke-width="2" />
+    <g fill="#fef3c7">
+      <ellipse cx="30" cy="36" rx="3" ry="1.6" transform="rotate(-25 30 36)" />
+      <ellipse cx="48" cy="32" rx="3" ry="1.6" transform="rotate(15 48 32)" />
+      <ellipse cx="38" cy="48" rx="3" ry="1.6" transform="rotate(-10 38 48)" />
+      <ellipse cx="54" cy="50" rx="3" ry="1.6" transform="rotate(35 54 50)" />
+      <ellipse cx="26" cy="52" rx="3" ry="1.6" transform="rotate(55 26 52)" />
+    </g>
+    <g fill="none" stroke="#78350f" stroke-width="1.5" stroke-linecap="round" opacity="0.6">
+      <path d="M 30 14 Q 34 10 30 6" />
+      <path d="M 42 10 Q 46 6 42 2" />
+      <path d="M 54 14 Q 58 10 54 6" />
+    </g>
   </g>
 
-  <!-- Wordmark -->
   <g transform="translate(120, 0)">
-    <text x="0" y="58" font-family="Noto Serif JP, Georgia, serif" font-size="36" font-weight="700" fill="#0c4a6e" letter-spacing="2">
-      AKANE
+    <text x="0" y="58" font-family="Noto Serif JP, Georgia, serif" font-size="44" font-weight="700" fill="#78350f" letter-spacing="4">
+      焙 HOU
     </text>
-    <text x="0" y="90" font-family="Noto Serif JP, Georgia, serif" font-size="22" font-weight="500" fill="#0c4a6e" letter-spacing="6">
-      PARTNERS
+    <text x="0" y="86" font-family="Noto Serif JP, Georgia, serif" font-size="14" font-weight="500" fill="#a16207" letter-spacing="4">
+      ほう
     </text>
-    <!-- Accent line -->
-    <rect x="0" y="95" width="60" height="2" fill="url(#akane-grad)" />
+    <rect x="0" y="95" width="60" height="2" fill="url(#hou-grad)" />
     <text x="70" y="102" font-family="Noto Sans JP, sans-serif" font-size="10" fill="#64748b" letter-spacing="1">
-      訳アリ不動産の再生パートナー
+      焙煎玄米だけの、玄米茶ブランド
     </text>
   </g>
 </svg>

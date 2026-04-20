@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import LandingPage from './pages/LandingPage'
-import Login from './pages/Login'
 import Slides from './pages/Slides'
 import Documents from './pages/Documents'
 import CategoryAnalysis from './pages/CategoryAnalysis'
@@ -32,8 +31,6 @@ const NAV: { key: Page; label: string }[] = [
   { key: 'documents', label: '資料' },
 ]
 
-const AUTH_KEY = 'genmaicha-brand:auth'
-
 type HashResult = { page: Page; param: string | null }
 
 function parseHash(): HashResult {
@@ -58,9 +55,6 @@ function parseHash(): HashResult {
 }
 
 export default function App() {
-  const [authed, setAuthed] = useState<boolean>(
-    () => sessionStorage.getItem(AUTH_KEY) === '1',
-  )
   const [state, setState] = useState<HashResult>(parseHash)
 
   const setPage = (p: Page, param?: string) => {
@@ -75,15 +69,6 @@ export default function App() {
     window.addEventListener('hashchange', handler)
     return () => window.removeEventListener('hashchange', handler)
   }, [])
-
-  if (!authed) {
-    return <Login onLogin={() => setAuthed(true)} />
-  }
-
-  const logout = () => {
-    sessionStorage.removeItem(AUTH_KEY)
-    setAuthed(false)
-  }
 
   return (
     <div className="flex min-h-full flex-col">
@@ -104,12 +89,6 @@ export default function App() {
                   焙煎玄米だけの、玄米茶ブランド
                 </span>
               </span>
-            </button>
-            <button
-              onClick={logout}
-              className="rounded-md border border-stone-200 px-2.5 py-1 text-[10px] font-medium text-stone-500 hover:bg-stone-50 md:px-3 md:py-2 md:text-xs"
-            >
-              ログアウト
             </button>
           </div>
           <nav className="mt-2 -mx-4 flex gap-1 overflow-x-auto px-4 pb-0.5 md:mx-0 md:mt-3 md:px-0 md:pb-0 scrollbar-none">
@@ -158,7 +137,7 @@ export default function App() {
         <div className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4 text-xs text-stone-500 md:flex-row md:items-center md:justify-between md:px-6">
           <div>© 2026 焙 HOU(ほう) | 宮城発・焙煎玄米ブランド</div>
           <div className="text-[11px] text-stone-400">
-            Shimanto AI Project / Private Preview
+            Shimanto AI Project / Open Preview
           </div>
         </div>
       </footer>

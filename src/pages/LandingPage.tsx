@@ -20,7 +20,7 @@ export default function LandingPage({ onNavigate }: Props) {
   const siteUrl =
     typeof window !== 'undefined'
       ? `${window.location.origin}${window.location.pathname}`
-      : 'https://genmaicha-tanpo.pages.dev/'
+      : 'https://genmaicha-project.pages.dev/'
 
   useEffect(() => {
     QRCode.toDataURL(siteUrl, {
@@ -130,6 +130,71 @@ export default function LandingPage({ onNavigate }: Props) {
             target="国内D2C / ギフト / 海外ウェルネス向け"
           />
         </div>
+      </section>
+
+      {/* Future retail lineup */}
+      <section>
+        <div className="mb-5 flex items-end justify-between md:mb-8">
+          <div>
+            <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-matcha-600 md:text-xs">
+              Retail Product Roadmap · 2026-2028
+            </div>
+            <h2 className="text-xl font-bold text-stone-900 md:text-2xl">
+              将来の小売商品構想
+            </h2>
+          </div>
+          <span className="hidden rounded-md border border-brand-200 bg-brand-50 px-2 py-1 text-[10px] font-semibold text-brand-700 md:inline-block md:text-xs">
+            長期ロードマップ
+          </span>
+        </div>
+        <p className="mb-5 text-xs leading-relaxed text-stone-600 md:mb-6 md:text-sm">
+          焙煎玄米2種(ASA-HOU / YORU-HOU)を起点に、
+          <strong className="font-semibold text-stone-900">"焙煎玄米を中心にした飲料・食のライフスタイル"</strong>
+          を段階的に拡張します。ここに載る商品は全て構想段階であり、
+          スモールスタートでの検証と商工会議所・地域金融機関との連携を前提に、年次で判断していきます。
+        </p>
+
+        <div className="grid gap-4 md:grid-cols-3 md:gap-5">
+          <RoadmapPhase
+            phase="PHASE 1"
+            year="2026 (初年度)"
+            headline="焙煎玄米 2種 + お試しセット"
+            items={[
+              '朝の焙 ASA-HOU 100g 缶(浅焙煎)',
+              '夜の焙 YORU-HOU 100g 缶(深焙煎)',
+              '¥500 お試しセット(ASA 10g + YORU 10g + 飲み方カード)',
+              'D2C / ECサイト(Shopify or BASE) / 宮城県内マルシェ出店',
+            ]}
+            accent="brand"
+          />
+          <RoadmapPhase
+            phase="PHASE 2"
+            year="2027"
+            headline="ブレンド・ティーバッグ・ギフト"
+            items={[
+              '焙煎玄米 × 緑茶 ブレンド ティーバッグ(個包装)',
+              '焙じ玄米茶ラテ用 粉末(カフェ / 自宅向け)',
+              'ギフトボックス(お試しセット豪華版 / のし対応)',
+              '専門茶店・カフェ向けのプレミアムOEM枠',
+            ]}
+            accent="matcha"
+          />
+          <RoadmapPhase
+            phase="PHASE 3"
+            year="2028〜"
+            headline="海外D2C + 食のライフスタイル"
+            items={[
+              '海外向け Genmaicha セット(英語パッケージ / 海外D2C)',
+              '焙煎玄米 × 米菓子(玄米あられ / グラノーラ試作)',
+              '焙煎玄米 × 発酵(甘酒 / 米麹)',
+              'サブスク(月イチで旬の焙煎ロット届ける)',
+            ]}
+            accent="stone"
+          />
+        </div>
+        <p className="mt-4 text-xs text-stone-500 md:text-sm">
+          ※ 表記の商品名・SKUはいずれも開発コードであり、実際の発売時に変更されます。投資・仕入れの確約情報ではありません。
+        </p>
       </section>
 
       {/* Market highlights */}
@@ -299,6 +364,65 @@ function InvCard({ title, body }: { title: string; body: string }) {
     <div className="rounded-lg bg-stone-800 p-4">
       <div className="text-xs font-medium uppercase tracking-wide text-brand-300">{title}</div>
       <div className="mt-1 font-semibold text-white">{body}</div>
+    </div>
+  )
+}
+
+function RoadmapPhase({
+  phase,
+  year,
+  headline,
+  items,
+  accent,
+}: {
+  phase: string
+  year: string
+  headline: string
+  items: string[]
+  accent: 'brand' | 'matcha' | 'stone'
+}) {
+  const accentMap = {
+    brand: {
+      bar: 'from-brand-700 to-brand-500',
+      chip: 'bg-brand-50 text-brand-700 border-brand-200',
+      dot: 'bg-brand-500',
+    },
+    matcha: {
+      bar: 'from-matcha-600 to-matcha-400',
+      chip: 'bg-matcha-400/10 text-matcha-700 border-matcha-400/30',
+      dot: 'bg-matcha-500',
+    },
+    stone: {
+      bar: 'from-stone-800 to-stone-500',
+      chip: 'bg-stone-100 text-stone-700 border-stone-300',
+      dot: 'bg-stone-500',
+    },
+  }[accent]
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm">
+      <div className={`h-1 w-full bg-gradient-to-r ${accentMap.bar}`} />
+      <div className="flex-1 space-y-3 p-5 md:p-6">
+        <div className="flex items-center justify-between">
+          <span
+            className={`rounded-full border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ${accentMap.chip}`}
+          >
+            {phase}
+          </span>
+          <span className="text-[10px] font-semibold text-stone-500 md:text-xs">{year}</span>
+        </div>
+        <h3 className="font-serif text-base font-bold leading-snug text-stone-900 md:text-lg">
+          {headline}
+        </h3>
+        <ul className="space-y-1.5 text-xs leading-relaxed text-stone-700 md:text-sm">
+          {items.map((it) => (
+            <li key={it} className="flex gap-2">
+              <span className={`mt-[7px] h-1.5 w-1.5 flex-shrink-0 rounded-full ${accentMap.dot}`} />
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
