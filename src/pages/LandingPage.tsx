@@ -6,6 +6,7 @@ type NavTarget =
   | 'manga'
   | 'bizstory'
   | 'shop'
+  | 'products'
   | 'business'
   | 'category'
   | 'global'

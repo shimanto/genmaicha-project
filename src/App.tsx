@@ -3,6 +3,7 @@ import LandingPage from './pages/LandingPage'
 import Manga from './pages/Manga'
 import BizStory from './pages/BizStory'
 import Shop from './pages/Shop'
+import Products from './pages/Products'
 import Business from './pages/Business'
 import Category from './pages/Category'
 import Global from './pages/Global'
@@ -16,6 +17,7 @@ type Page =
   | 'manga'
   | 'bizstory'
   | 'shop'
+  | 'products'
   | 'business'
   | 'category'
   | 'global'
@@ -27,6 +29,7 @@ type Page =
 const NAV: { key: Exclude<Page, { kind: string }>; label: string; accent?: boolean }[] = [
   { key: 'lp', label: 'トップ' },
   { key: 'shop', label: 'ショップ', accent: true },
+  { key: 'products', label: '商品ラインナップ', accent: true },
   { key: 'bizstory', label: '事業ストーリー' },
   { key: 'manga', label: '漫画' },
   { key: 'business', label: '事業説明' },
@@ -47,6 +50,7 @@ function pageFromHash(): Page {
     h === 'manga' ||
     h === 'bizstory' ||
     h === 'shop' ||
+    h === 'products' ||
     h === 'business' ||
     h === 'category' ||
     h === 'global' ||
@@ -143,6 +147,7 @@ export default function App() {
         {page === 'manga' && <Manga />}
         {page === 'bizstory' && <BizStory onNavigateShop={() => setPage('shop')} />}
         {page === 'shop' && <Shop />}
+        {page === 'products' && <Products />}
         {page === 'business' && <Business />}
         {page === 'category' && <Category />}
         {page === 'global' && <Global />}

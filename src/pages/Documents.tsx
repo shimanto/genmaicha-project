@@ -6,8 +6,9 @@ import brandGuidelinesMd from '../../docs/brand-guidelines.md?raw'
 import productRoadmapMd from '../../docs/product-roadmap.md?raw'
 import oemContractMd from '../../docs/oem-contract-template.md?raw'
 import exportChecklistMd from '../../docs/export-checklist.md?raw'
+import stickerPrintingMd from '../../docs/sticker-printing-research.md?raw'
 
-type DocKey = 'plan' | 'brand' | 'product' | 'oem' | 'export'
+type DocKey = 'plan' | 'brand' | 'product' | 'oem' | 'export' | 'sticker'
 
 type DocItem = {
   key: DocKey
@@ -58,6 +59,14 @@ const DOCS: DocItem[] = [
     category: 'CHECKLIST',
     md: exportChecklistMd,
     icon: '◈',
+  },
+  {
+    key: 'sticker',
+    title: 'シール・ラベル印刷ガイド',
+    subtitle: '5業者比較 + ¥3,000〜のスモールスタート組合せ',
+    category: 'PRINT',
+    md: stickerPrintingMd,
+    icon: '◆',
   },
 ]
 
