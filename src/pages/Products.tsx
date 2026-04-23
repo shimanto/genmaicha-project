@@ -37,17 +37,19 @@ export default function Products() {
         <div className="mb-2 flex items-center gap-2">
           <div className="h-px w-6 bg-brand-500" />
           <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-700 md:text-xs">
-            PRODUCT LINEUP / 30 SKU SAMPLES
+            PRODUCT LINEUP / {PRODUCTS.length}+ SKU (順次追加)
           </span>
         </div>
         <h1 className="font-serif text-2xl font-bold text-brand-900 md:text-3xl">
-          商品ラインナップ — 30パターン サンプルデザイン
+          商品ラインナップ — {PRODUCTS.length}+ パターン サンプルデザイン
         </h1>
         <p className="mt-2 text-xs leading-relaxed text-brand-800/80 md:text-sm">
-          BASE 等 EC 出店時にすぐ使えることを想定した、焙 HOU 30 SKU の{' '}
+          BASE 等 EC 出店時にすぐ使えることを想定した、焙 HOU{' '}
           <strong className="text-brand-700">サンプル / 構想段階</strong>{' '}
-          パッケージデザインです。価格・容量・最小ロット・外装概算コストは 2026年4月時点の
-          市場相場をもとにした想定値で、実発売時に再見積りします。
+          パッケージデザイン集。30 件の初期ラインに加え、季節商品・新規カテゴリは
+          随時追加していきます(
+          <code className="rounded bg-washi-100 px-1 py-0.5 text-[11px]">agent/generate-products.js</code>
+          に SKU を追記して再生成)。価格・ロット・概算コストは 2026年4月時点の想定値。
         </p>
         <p className="mt-1 text-[11px] text-brand-700/60 md:text-xs">
           ※ 全画像は nano-banana-pro による生成。本印刷時はベクター化と CMYK 変換が必要です(下部の

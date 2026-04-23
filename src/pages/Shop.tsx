@@ -15,34 +15,45 @@ type Product = {
 const PRODUCTS: Product[] = [
   {
     id: 'try20',
-    name: 'お試しセット',
-    en: 'Tasting Set 20g × 2',
+    name: 'お試しセット ¥500',
+    en: 'Tasting Set 10g × 2',
     price: 500,
-    tag: 'はじめての一杯',
+    tag: 'はじめての一杯 / 2種',
     bg: 'from-brand-400 to-brand-600',
-    description: '朝の焙 10g + 夜の焙 10g + 飲み方カード。送料込みで¥500。',
+    description: '朝の焙 10g + 夜の焙 10g + 飲み方カード。送料込み ¥500。「とりあえず一杯」用の超エントリー。',
     badge: '送料込み',
-    image: '/biz-manga/biz-08.png',
+    image: '/packaging/pkg-11.png',
+  },
+  {
+    id: 'try980',
+    name: 'テイスティング 4種フライト ¥980',
+    en: 'Roast Flight 4 Tea Bags',
+    price: 980,
+    tag: '世界観を一気に / 4種',
+    bg: 'from-matcha-500 to-matcha-700',
+    description: '中焙煎・深煎り・抹茶混合・塩玄米の 5g×4 包。飲み方ガイド + 透明窓のクラフト箱で贈答にも。',
+    badge: 'BEST FOR ENTRY',
+    image: '/packaging/pkg-31.png',
   },
   {
     id: 'asa100',
-    name: '朝の焙 ASA-HOU',
+    name: '朝の焙 ASA-HOU 100g',
     en: 'Light Roast 100g',
     price: 1200,
     tag: '浅焙煎 × 爽やか',
-    bg: 'from-matcha-400 to-matcha-600',
+    bg: 'from-brand-300 to-brand-500',
     description: '緑茶とのブレンドにも最適。朝の目覚めを香りで整える軽やかな焙煎玄米。',
-    image: '/biz-manga/biz-07.png',
+    image: '/packaging/pkg-01.png',
   },
   {
     id: 'yoru100',
-    name: '夜の焙 YORU-HOU',
+    name: '夜の焙 YORU-HOU 100g',
     en: 'Dark Roast 100g',
     price: 1400,
     tag: '深焙煎 × 深み',
     bg: 'from-brand-700 to-brand-900',
     description: '単体飲用に。ノンカフェインなので夜のリラックスタイムにも。',
-    image: '/biz-manga/biz-07.png',
+    image: '/packaging/pkg-02.png',
   },
 ]
 
@@ -133,7 +144,11 @@ export default function Shop() {
               宮城の小さな工場で、創業70年の家族が焙煎する玄米茶。
               ノンカフェインで香ばしく、単一素材ならではの深い味わい。
               <br />
-              まずは <strong className="font-semibold text-white">¥500 お試しセット</strong> からどうぞ。
+              まずは{' '}
+              <strong className="font-semibold text-white">¥500 お試し</strong>{' '}
+              か{' '}
+              <strong className="font-semibold text-white">¥980 4種フライト</strong>{' '}
+              からどうぞ。
             </p>
             <div className="flex flex-col gap-3 md:flex-row">
               <a
@@ -177,8 +192,11 @@ export default function Shop() {
               Product Lineup
             </div>
             <h2 className="text-xl font-bold text-brand-900 md:text-2xl">
-              3つの焙煎玄米
+              4 つのスターターと焙煎玄米
             </h2>
+            <p className="mt-1 text-xs text-brand-700/70 md:text-sm">
+              ¥500 と ¥980 の二段エントリーから、お好みで本商品 100g へ。
+            </p>
           </div>
           <a
             href={BASE_SHOP_URL}
@@ -189,7 +207,7 @@ export default function Shop() {
             BASE 全商品ページ →
           </a>
         </div>
-        <div className="grid gap-4 md:grid-cols-3 md:gap-6">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
           {PRODUCTS.map((p) => (
             <article
               key={p.id}
@@ -381,26 +399,37 @@ export default function Shop() {
       {/* Final CTA */}
       <section className="rounded-2xl bg-gradient-to-br from-brand-700 to-brand-900 px-6 py-10 text-center text-white md:px-10 md:py-14">
         <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.3em] text-brand-100 md:text-xs">
-          Start With ¥500
+          Start With ¥500 or ¥980
         </div>
         <h2 className="mb-3 font-serif text-2xl font-bold md:text-3xl">
           はじめての一杯を、焙 HOU で。
         </h2>
         <p className="mb-6 text-sm leading-relaxed text-brand-100 md:text-base">
-          朝の焙 10g + 夜の焙 10g + 飲み方カード。送料込みで¥500。
+          ¥500「とりあえず一杯」セット(10g×2) か、¥980 4種フライト
+          (中焙煎・深煎り・抹茶混合・塩玄米 5g×4)。
           <br />
-          まずは一度、70年の焙煎を味わってください。
+          70年の焙煎を、自分のペースでお試しください。
         </p>
-        <a
-          href={BASE_SHOP_URL}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-base font-bold text-brand-900 shadow-lg hover:bg-brand-50 md:px-10 md:py-5 md:text-lg"
-        >
-          BASE でお試しセットを買う →
-        </a>
+        <div className="flex flex-col items-center justify-center gap-3 md:flex-row">
+          <a
+            href={BASE_SHOP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-8 py-4 text-base font-bold text-brand-900 shadow-lg hover:bg-brand-50 md:px-10 md:py-5 md:text-lg"
+          >
+            ¥500 お試しセットを買う →
+          </a>
+          <a
+            href={BASE_SHOP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-white px-8 py-4 text-base font-bold text-white hover:bg-white/10 md:px-10 md:py-5 md:text-lg"
+          >
+            ¥980 4種フライトを買う →
+          </a>
+        </div>
         <p className="mt-4 text-[10px] text-brand-200/70 md:text-xs">
-          ※ BASE 店舗は2026年夏オープン予定(準備中)。リンク先は仮URLです。
+          ※ BASE 店舗は 2026 年夏オープン予定(準備中)。リンク先は仮 URL です。
         </p>
       </section>
     </div>

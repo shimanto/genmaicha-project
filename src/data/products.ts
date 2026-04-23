@@ -257,7 +257,8 @@ export const PRODUCTS: Product[] = [
     mediumTotal: 42000,
     image: '/packaging/pkg-11.png',
     printPdf: '/packaging/pkg-11.pdf',
-    notes: '導線商品。マージン薄いが顧客獲得CAC として位置付け。',
+    notes:
+      '超低 CAC エントリー (10g×2)。マージン薄いが顧客獲得 CAC として位置付け。¥980 4種フライト (No.31) と二段運用 — ¥500 で網を張り、興味を示した顧客に ¥980 を案内。',
   },
   {
     no: 12,
@@ -643,6 +644,28 @@ export const PRODUCTS: Product[] = [
     image: '/packaging/pkg-30.png',
     printPdf: '/packaging/pkg-30.pdf',
     notes: '商品裏面用 (原材料/賞味期限/製造者)。耐水仕様推奨。',
+  },
+  // ===== I. 順次追加 SKU =====
+  {
+    no: 31,
+    id: 'try-980-flight',
+    name: 'テイスティング 4種フライト ¥980',
+    nameEn: 'Roast Flight 4 Tea Bags',
+    category: 'お試しセット',
+    weight: '20g (5g×4)',
+    retailPrice: 980,
+    dimensions: 'クラフト紙箱 180×100×20mm + 透明窓',
+    material: 'クラフト紙箱 + 透明窓 + 帯紙 + 飲み方ガイドカード',
+    sticker: '180×30mm 帯紙(箱胴) + 各小袋 30×30mm',
+    packagingUnitCost: 200,
+    smallStartLot: 50,
+    smallStartTotal: 11000,
+    mediumLot: 300,
+    mediumTotal: 50000,
+    image: '/packaging/pkg-31.png',
+    printPdf: '/packaging/pkg-31.pdf',
+    notes:
+      '中焙煎/深煎り/抹茶混合/塩玄米の4種フライト。施策01/03 のメイン エントリー商品。¥500 セット (No.11) と二段構成で運用 — ¥500 は超低 CAC、¥980 は世界観全体の理解促進。',
   },
 ]
 
