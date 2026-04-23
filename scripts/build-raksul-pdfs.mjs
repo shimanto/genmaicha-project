@@ -95,6 +95,40 @@ const ITEMS = [
     raksulSize: '30×30mm (Raksul 標準サイズ)',
     notes: '¥980 内小袋 塩玄米ラベル。',
   },
+  // ===== v2: コンパクト・クリックポスト対応 (10%以下原価) =====
+  {
+    src: path.join(LABEL_DIR, 'try500-mailer-front.png'),
+    out: 'try500-v2-card-front-148x100mm',
+    wMm: 148,
+    hMm: 100,
+    raksulSize: 'ハガキサイズ 148×100mm (Raksul 標準)',
+    notes: '¥500 v2 ハガキカード 表面。Raksul ハガキ印刷 両面で発注。',
+  },
+  {
+    src: path.join(LABEL_DIR, 'try500-mailer-back.png'),
+    out: 'try500-v2-card-back-148x100mm',
+    wMm: 148,
+    hMm: 100,
+    raksulSize: 'ハガキサイズ 148×100mm (Raksul 標準)',
+    notes: '¥500 v2 ハガキカード 裏面 (飲み方ガイド + QR + 製造者表記)。表面と同時入稿。',
+  },
+  {
+    src: path.join(LABEL_DIR, 'try980-mailer-cover.png'),
+    out: 'try980-v2-A5-cover-105x148mm',
+    wMm: 105,
+    hMm: 148,
+    raksulSize: 'A5 二つ折りパンフ 表紙 (Raksul A5 半面)',
+    notes: '¥980 v2 A5 二つ折りパンフ 折り後表紙。A5 両面印刷で発注、内側と一体。',
+  },
+  {
+    src: path.join(LABEL_DIR, 'try980-mailer-inside.png'),
+    out: 'try980-v2-A5-inside-210x148mm',
+    wMm: 210,
+    hMm: 148,
+    raksulSize: 'A5 横 210×148mm (Raksul 標準)',
+    notes: '¥980 v2 A5 二つ折りパンフ 内側展開 (4ポケット部分)。A5 両面印刷で発注。',
+  },
+
   // 既存シール SKU
   {
     src: path.join(PKG_DIR, 'pkg-29.png'),
