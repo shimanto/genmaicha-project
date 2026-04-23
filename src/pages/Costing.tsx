@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import PptxGenJS from 'pptxgenjs'
+import ActualProductsNote from '../components/ActualProductsNote'
 import {
   CATEGORIES,
   PRODUCTS,
@@ -137,6 +138,8 @@ export default function Costing() {
           </button>
         </div>
       </header>
+
+      <ActualProductsNote variant="banner" />
 
       {/* Filter + Totals */}
       <section className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">

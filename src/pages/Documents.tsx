@@ -7,8 +7,9 @@ import productRoadmapMd from '../../docs/product-roadmap.md?raw'
 import oemContractMd from '../../docs/oem-contract-template.md?raw'
 import exportChecklistMd from '../../docs/export-checklist.md?raw'
 import stickerPrintingMd from '../../docs/sticker-printing-research.md?raw'
+import actualLineupMd from '../../docs/actual-product-lineup.md?raw'
 
-type DocKey = 'plan' | 'brand' | 'product' | 'oem' | 'export' | 'sticker'
+type DocKey = 'plan' | 'brand' | 'product' | 'oem' | 'export' | 'sticker' | 'actual'
 
 type DocItem = {
   key: DocKey
@@ -20,6 +21,14 @@ type DocItem = {
 }
 
 const DOCS: DocItem[] = [
+  {
+    key: 'actual',
+    title: '実際の取扱商品ラインナップ',
+    subtitle: '現行 2 種(あられ・ポップライス)+ 将来候補 3 種 + 工場増設',
+    category: 'ACTUAL',
+    md: actualLineupMd,
+    icon: '⭐',
+  },
   {
     key: 'plan',
     title: '事業計画書ドラフト',
@@ -76,7 +85,7 @@ marked.setOptions({
 })
 
 export default function Documents() {
-  const [activeKey, setActiveKey] = useState<DocKey>('plan')
+  const [activeKey, setActiveKey] = useState<DocKey>('actual')
   const [mobileIndexOpen, setMobileIndexOpen] = useState(false)
 
   const active = DOCS.find((d) => d.key === activeKey)!

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import ActualProductsNote from '../components/ActualProductsNote'
 
 type Panel = {
   title: string
@@ -133,6 +134,8 @@ export default function BizStory({ onNavigateShop }: { onNavigateShop?: ShopNav 
           お米高騰というリアルな課題と、それをチャンスに変える戦略までカバー。
         </p>
       </div>
+
+      <ActualProductsNote variant="banner" className="mb-5 md:mb-6" />
 
       <div className="sticky top-[116px] z-10 mb-4 -mx-4 bg-washi-50/95 px-4 py-2 backdrop-blur md:hidden">
         <div className="flex items-center justify-between text-xs text-brand-800/70">

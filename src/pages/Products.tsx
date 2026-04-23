@@ -8,6 +8,7 @@ import {
   type Product,
   type ProductCategory,
 } from '../data/products'
+import ActualProductsNote from '../components/ActualProductsNote'
 
 type Filter = 'all' | ProductCategory
 
@@ -72,6 +73,8 @@ export default function Products() {
           />
         </div>
       </header>
+
+      <ActualProductsNote variant="compact" />
 
       {/* Filter pills */}
       <section>

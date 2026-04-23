@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import QRCode from 'qrcode'
+import ActualProductsNote from '../components/ActualProductsNote'
 
 type NavTarget =
   | 'lp'
@@ -93,6 +94,9 @@ export default function LandingPage({ onNavigate }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Actual product lineup note */}
+      <ActualProductsNote variant="compact" />
 
       {/* Story / 3 strengths */}
       <section>

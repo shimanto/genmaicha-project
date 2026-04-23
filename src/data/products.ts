@@ -780,8 +780,8 @@ export const PRODUCTS: Product[] = [
   {
     no: 31,
     id: 'try-980-flight',
-    name: 'テイスティング 4種フライト ¥980 (v2 コンパクト)',
-    nameEn: 'Roast Flight 4 Tea Bags (Click Post Compact)',
+    name: 'テイスティング 4種セット ¥980 (v3 実商品構成)',
+    nameEn: 'Tasting 4 Kinds Set (Real Product Composition)',
     category: 'お試しセット',
     weight: '20g (5g×4)',
     weightG: 20,
@@ -797,9 +797,9 @@ export const PRODUCTS: Product[] = [
     image: '/print/labels/try980-mailer-cover.png',
     printPdf: '/packaging/pkg-31.pdf',
     notes:
-      '【v2 コンパクト】原価 ¥75 (7.7%) 達成。A5 二つ折りパンフレットで箱・帯紙・小袋シールを全廃。' +
-      'Raksul A5両面印刷 1 ジョブで完結し、Illustrator なしでも入稿可。' +
-      '厚さ約10mmでクリックポスト ¥185 対応。¥500 v2 と二段運用。',
+      '【v3 実商品構成】¥500 セット同梱の朝の焙・夜の焙 + 実工場の主力 2 種(玄米あられ・ポップライス)' +
+      'の 4 構成。塩玄米・抹茶混合は将来候補(ペンディング)。原価 ¥75 (7.7%) は v2 から維持。' +
+      'A5 二つ折りパンフ + 内側 4 ポケット + 平袋 ×4。クリックポスト ¥185 対応。',
     revisions: [
       {
         date: '2026-04-24',
@@ -811,6 +811,16 @@ export const PRODUCTS: Product[] = [
         reason: '原価10%以下達成 + クリックポスト ¥185 対応 (旧設計は箱で 20mm 厚 → 不可)',
         beforeCost: 200,
         afterCost: 75,
+      },
+      {
+        date: '2026-04-24',
+        field: 'spec',
+        before:
+          'v2: 中焙煎 / 深煎り / 抹茶混合 / 塩玄米 の 4 種フライト(架空構成)',
+        after:
+          'v3: 朝の焙 / 夜の焙 / 玄米あられ / 白くはじけた玄米 の 4 種(¥500 同梱内容 + 実商品 2 種)。塩・抹茶混合はペンディング',
+        reason:
+          '実工場の主力 2 種(玄米あられ・ポップライス)を組み込んでブランドと実体を一致させ、¥500 セットからのアップグレード導線を簡素化',
       },
     ],
     raksulLabels: [

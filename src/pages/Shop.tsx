@@ -1,3 +1,5 @@
+import ActualProductsNote from '../components/ActualProductsNote'
+
 const BASE_SHOP_URL = 'https://genmaicha.base.shop/'
 
 type Product = {
@@ -31,7 +33,8 @@ const PRODUCTS: Product[] = [
     price: 980,
     tag: '世界観を一気に / 4種',
     bg: 'from-matcha-500 to-matcha-700',
-    description: '中焙煎・深煎り・抹茶混合・塩玄米の 5g×4 包。飲み方ガイド + 透明窓のクラフト箱で贈答にも。',
+    description:
+      '朝の焙(浅焙煎)+ 夜の焙(深焙煎)+ 玄米あられ + 白くはじけた玄米(ポップライス・花)の 5g×4 包。¥500 セット同梱内容と実工場の主力 2 種をワンセットで体験。',
     badge: 'BEST FOR ENTRY',
     image: '/packaging/pkg-31.png',
   },
@@ -296,6 +299,9 @@ export default function Shop() {
         </div>
       </section>
 
+      {/* Actual product lineup note */}
+      <ActualProductsNote variant="compact" />
+
       {/* Rice inflation story */}
       <section className="overflow-hidden rounded-2xl bg-gradient-to-br from-washi-100 to-washi-200 p-6 md:p-10">
         <div className="grid gap-6 md:grid-cols-[240px_1fr] md:gap-10">
@@ -406,7 +412,7 @@ export default function Shop() {
         </h2>
         <p className="mb-6 text-sm leading-relaxed text-brand-100 md:text-base">
           ¥500「とりあえず一杯」セット(10g×2) か、¥980 4種フライト
-          (中焙煎・深煎り・抹茶混合・塩玄米 5g×4)。
+          (朝の焙・夜の焙・玄米あられ・白くはじけた玄米 5g×4)。
           <br />
           70年の焙煎を、自分のペースでお試しください。
         </p>
