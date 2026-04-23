@@ -14,6 +14,14 @@ export type ProductCategory =
   | 'ギフト・季節'
   | 'シール単体'
 
+export type RaksulLabel = {
+  title: string // 例: "封筒前面 60×80mm"
+  pdf: string // /print/raksul/<name>.pdf
+  png?: string // /print/labels/<name>.png (アートワーク原本)
+  sizeMm: string // "60×80mm"
+  raksulSpec: string // "自由サイズ" or "30×30 標準" 等
+}
+
 export type Product = {
   no: number
   id: string
@@ -33,7 +41,12 @@ export type Product = {
   image: string // /packaging/pkg-XX.png
   printPdf: string // /packaging/pkg-XX.pdf (PNG を 100mm 角 で wrap した参考用)
   notes: string
+  raksulLabels?: RaksulLabel[] // セット商品の場合のラベル一式 (印刷用 PDF)
+  raksulPrintReady?: boolean // 単独で Raksul 入稿可能なシール SKU (No.29/30 など)
 }
+
+export const RAKSUL_STICKER_URL = 'https://raksul.com/print/sticker/'
+export const RAKSUL_TEMPLATE_URL = 'https://raksul.com/template/sticker/'
 
 export const PRODUCTS: Product[] = [
   // ===== A. 国内 缶パッケージ (5) =====
@@ -259,6 +272,29 @@ export const PRODUCTS: Product[] = [
     printPdf: '/packaging/pkg-11.pdf',
     notes:
       '超低 CAC エントリー (10g×2)。マージン薄いが顧客獲得 CAC として位置付け。¥980 4種フライト (No.31) と二段運用 — ¥500 で網を張り、興味を示した顧客に ¥980 を案内。',
+    raksulLabels: [
+      {
+        title: '封筒前面ラベル',
+        pdf: '/print/raksul/try500-envelope-60x80mm.pdf',
+        png: '/print/labels/try500-envelope.png',
+        sizeMm: '60×80mm 角丸',
+        raksulSpec: '自由サイズ(70×100 規格相当)',
+      },
+      {
+        title: '内袋 朝の焙 ラベル',
+        pdf: '/print/raksul/try500-asa-sachet-30x30mm.pdf',
+        png: '/print/labels/try500-asa-sachet.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+      {
+        title: '内袋 夜の焙 ラベル',
+        pdf: '/print/raksul/try500-yoru-sachet-30x30mm.pdf',
+        png: '/print/labels/try500-yoru-sachet.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+    ],
   },
   {
     no: 12,
@@ -623,7 +659,17 @@ export const PRODUCTS: Product[] = [
     mediumTotal: 9000,
     image: '/packaging/pkg-29.png',
     printPdf: '/packaging/pkg-29.pdf',
-    notes: 'ラスクル・プリントネット等で印刷可能。詳細は印刷ガイド参照。',
+    notes: 'Raksul 一択で印刷推奨。「自由サイズ φ60mm 円形 + おまかせカット」で発注。詳細は印刷ガイド参照。',
+    raksulPrintReady: true,
+    raksulLabels: [
+      {
+        title: 'φ60mm 円形ロゴシール',
+        pdf: '/print/raksul/sticker-circle-60mm.pdf',
+        png: '/packaging/pkg-29.png',
+        sizeMm: 'φ60mm 円形',
+        raksulSpec: '自由サイズ + おまかせカット(無料)',
+      },
+    ],
   },
   {
     no: 30,
@@ -643,7 +689,17 @@ export const PRODUCTS: Product[] = [
     mediumTotal: 11000,
     image: '/packaging/pkg-30.png',
     printPdf: '/packaging/pkg-30.pdf',
-    notes: '商品裏面用 (原材料/賞味期限/製造者)。耐水仕様推奨。',
+    notes: '商品裏面用 (原材料/賞味期限/製造者)。Raksul の耐水コート紙で発注。',
+    raksulPrintReady: true,
+    raksulLabels: [
+      {
+        title: '60×80mm 食品表示シール',
+        pdf: '/print/raksul/sticker-info-60x80mm.pdf',
+        png: '/packaging/pkg-30.png',
+        sizeMm: '60×80mm 角',
+        raksulSpec: '自由サイズ(70×100 規格相当)+ 耐水紙',
+      },
+    ],
   },
   // ===== I. 順次追加 SKU =====
   {
@@ -666,6 +722,43 @@ export const PRODUCTS: Product[] = [
     printPdf: '/packaging/pkg-31.pdf',
     notes:
       '中焙煎/深煎り/抹茶混合/塩玄米の4種フライト。施策01/03 のメイン エントリー商品。¥500 セット (No.11) と二段構成で運用 — ¥500 は超低 CAC、¥980 は世界観全体の理解促進。',
+    raksulLabels: [
+      {
+        title: '帯紙(箱に巻く)',
+        pdf: '/print/raksul/try980-band-180x30mm.pdf',
+        png: '/print/labels/try980-band.png',
+        sizeMm: '180×30mm 横長',
+        raksulSpec: '自由サイズ(50×200 規格相当)',
+      },
+      {
+        title: '内小袋 中焙煎',
+        pdf: '/print/raksul/try980-naka-30x30mm.pdf',
+        png: '/print/labels/try980-naka.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+      {
+        title: '内小袋 深煎り',
+        pdf: '/print/raksul/try980-shin-30x30mm.pdf',
+        png: '/print/labels/try980-shin.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+      {
+        title: '内小袋 抹茶混合',
+        pdf: '/print/raksul/try980-matcha-30x30mm.pdf',
+        png: '/print/labels/try980-matcha.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+      {
+        title: '内小袋 塩玄米',
+        pdf: '/print/raksul/try980-shio-30x30mm.pdf',
+        png: '/print/labels/try980-shio.png',
+        sizeMm: '30×30mm',
+        raksulSpec: '30×30 標準',
+      },
+    ],
   },
 ]
 

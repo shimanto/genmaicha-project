@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import {
   CATEGORIES,
   PRODUCTS,
+  RAKSUL_STICKER_URL,
   TOTAL_MEDIUM,
   TOTAL_SMALL_START,
   type Product,
@@ -182,23 +183,34 @@ export default function Products() {
         id="print-guide"
         className="rounded-2xl bg-gradient-to-br from-brand-900 to-brand-700 p-6 text-white md:p-10"
       >
-        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-100 md:text-xs">
-          Print Guide
+        <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-orange-300 md:text-xs">
+          Print Partner / Raksul 一択
         </div>
         <h2 className="mb-2 font-serif text-xl font-bold md:text-2xl">
-          シール・ラベル印刷の方式検討
+          シール・ラベル印刷は <span className="font-mono text-orange-300">raksul</span> で
         </h2>
         <p className="mb-5 text-xs leading-relaxed text-brand-100/90 md:text-sm">
-          ラスクル / プリントネット / プリントパック / 山櫻 / ISC ルクサインの 5 業者と
-          自宅プリントを比較。<strong className="text-white">¥3,000〜¥12,000</strong> から
-          スモールスタートできる組み合わせ例も提示しています。
+          1枚から発注可・自由サイズ + おまかせカット無料・テンプレ豊富な Raksul を標準業者として採用。
+          初回 100 セット分のラベル一式は <strong className="text-white">約 ¥28,000</strong> で揃う想定。
+          各セット商品のモーダルから <strong className="text-orange-300">Raksul 規格 PDF</strong> を直接ダウンロード可能。
         </p>
-        <a
-          href="/#documents"
-          className="inline-flex rounded-lg bg-white px-5 py-2.5 text-xs font-semibold text-brand-800 shadow hover:bg-brand-50 md:text-sm"
-        >
-          資料タブで全文を読む →
-        </a>
+        <div className="flex flex-col gap-2 md:flex-row">
+          <a
+            href={RAKSUL_STICKER_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-5 py-3 text-sm font-bold text-white shadow hover:bg-orange-700 md:text-base"
+          >
+            <span className="font-mono uppercase tracking-[0.15em]">raksul</span>
+            <span>で印刷を依頼へ →</span>
+          </a>
+          <a
+            href="/#documents"
+            className="inline-flex items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-brand-800 shadow hover:bg-brand-50 md:text-base"
+          >
+            印刷ガイド全文 →
+          </a>
+        </div>
       </section>
 
       {/* Modal */}
@@ -356,10 +368,10 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             </div>
           )}
 
-          {/* Downloads */}
-          <div className="rounded-lg bg-washi-50 p-4">
+          {/* Concept downloads */}
+          <div className="mb-4 rounded-lg bg-washi-50 p-4">
             <div className="mb-2 text-[10px] font-semibold uppercase tracking-[0.2em] text-matcha-600 md:text-xs">
-              印刷業者向けダウンロード(SAMPLE)
+              コンセプト確認用 (商品全体イメージ)
             </div>
             <div className="flex flex-col gap-2 md:flex-row">
               <a
@@ -378,11 +390,80 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
               </a>
             </div>
             <p className="mt-3 text-[10px] leading-relaxed text-brand-700/70 md:text-xs">
-              ⚠ 本データは <strong>nano-banana-pro による生成サンプル</strong> です。
-              本印刷前に Illustrator でのベクター化・CMYK変換・食品表示の正規レイアウトが必要。
-              プロデザイナー依頼の参考: ¥80,000〜200,000(全SKU一式)
+              本データは <strong>nano-banana-pro 生成のコンセプトモック</strong> 。
+              SKU 全体イメージの確認用で、本印刷データではありません。
             </p>
           </div>
+
+          {/* Raksul print-ready labels */}
+          {product.raksulLabels && product.raksulLabels.length > 0 && (
+            <div className="rounded-lg border-2 border-orange-500 bg-orange-50 p-4 md:p-5">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="rounded bg-orange-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white md:text-xs">
+                  RAKSUL READY
+                </span>
+                <span className="text-xs font-semibold text-orange-900 md:text-sm">
+                  すぐ印刷できる Raksul 規格 PDF
+                </span>
+              </div>
+              <p className="mb-3 text-[11px] leading-relaxed text-orange-900/80 md:text-xs">
+                各ラベルは <strong>実寸 mm + 3mm 塗り足し</strong> で
+                Raksul の自由サイズに直接入稿できます。下のリスト → PDF を DL →
+                Raksul で「自由サイズ + おまかせカット(無料)」を選択。
+              </p>
+
+              <ul className="mb-4 divide-y divide-orange-200 rounded-lg border border-orange-200 bg-white">
+                {product.raksulLabels.map((lbl) => (
+                  <li
+                    key={lbl.pdf}
+                    className="flex flex-col gap-2 p-3 md:flex-row md:items-center md:justify-between md:gap-4 md:p-4"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="font-serif text-sm font-bold text-brand-900 md:text-base">
+                        {lbl.title}
+                      </div>
+                      <div className="text-[10px] text-brand-700/80 md:text-xs">
+                        実寸 <strong>{lbl.sizeMm}</strong> · Raksul {lbl.raksulSpec}
+                      </div>
+                    </div>
+                    <div className="flex flex-shrink-0 gap-1.5">
+                      {lbl.png && (
+                        <a
+                          href={lbl.png}
+                          download
+                          className="rounded border border-brand-700 px-2.5 py-1 text-[10px] font-semibold text-brand-700 hover:bg-brand-50 md:text-xs"
+                        >
+                          PNG
+                        </a>
+                      )}
+                      <a
+                        href={lbl.pdf}
+                        download
+                        className="rounded bg-brand-700 px-2.5 py-1 text-[10px] font-semibold text-white shadow hover:bg-brand-800 md:text-xs"
+                      >
+                        印刷PDF
+                      </a>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={RAKSUL_STICKER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-orange-700 md:py-4 md:text-base"
+              >
+                <span className="font-mono text-xs uppercase tracking-[0.15em] md:text-sm">
+                  raksul
+                </span>
+                <span>で印刷を依頼へ →</span>
+              </a>
+              <p className="mt-2 text-center text-[10px] text-orange-900/60 md:text-xs">
+                ⚠ 本印刷前に Illustrator でのアウトライン化・CMYK 変換が望ましい(本番量産時)
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
