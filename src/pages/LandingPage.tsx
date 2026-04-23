@@ -7,6 +7,7 @@ type NavTarget =
   | 'bizstory'
   | 'shop'
   | 'products'
+  | 'costing'
   | 'business'
   | 'category'
   | 'global'

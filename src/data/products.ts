@@ -22,6 +22,22 @@ export type RaksulLabel = {
   raksulSpec: string // "自由サイズ" or "30×30 標準" 等
 }
 
+// 改定履歴: パッケージ設計や原価の変更を時系列で記録
+// 新しい改定は revisions 配列の末尾に push する (= 古いものから時系列で並ぶ)
+export type Revision = {
+  date: string // 'YYYY-MM-DD'
+  field: 'packagingUnitCost' | 'design' | 'design + cost' | 'price' | 'spec'
+  before: string // 改定前の状態 (説明文 + 数値含む自然言語)
+  after: string // 改定後の状態
+  reason: string // 改定理由 (1文)
+  beforeCost?: number // packagingUnitCost 変更時の旧値
+  afterCost?: number // packagingUnitCost 変更時の新値
+}
+
+// 茶葉原価のレート (¥/g)
+// 2024年からのお米高騰で ¥770/kg = ¥0.77/g。安全係数なしで適用。
+export const TEA_COST_PER_G = 0.77
+
 export type Product = {
   no: number
   id: string
@@ -29,6 +45,7 @@ export type Product = {
   nameEn: string
   category: ProductCategory
   weight: string
+  weightG: number // 茶葉グラム数 (原価計算用、シール単体は 0)
   retailPrice: number // 税込小売価格
   dimensions: string
   material: string
@@ -43,6 +60,26 @@ export type Product = {
   notes: string
   raksulLabels?: RaksulLabel[] // セット商品の場合のラベル一式 (印刷用 PDF)
   raksulPrintReady?: boolean // 単独で Raksul 入稿可能なシール SKU (No.29/30 など)
+  revisions?: Revision[] // 改定履歴 (古い→新しい順)
+}
+
+// 茶葉原価を計算 (端数切上げ)
+export function teaCost(p: Product): number {
+  return Math.ceil(p.weightG * TEA_COST_PER_G)
+}
+
+// 利益・利益率の計算
+export function profit(p: Product): number {
+  return p.retailPrice - p.packagingUnitCost - teaCost(p)
+}
+export function profitMarginPct(p: Product): number {
+  return p.retailPrice > 0 ? (profit(p) / p.retailPrice) * 100 : 0
+}
+export function packagingMarginPct(p: Product): number {
+  return p.retailPrice > 0 ? (p.packagingUnitCost / p.retailPrice) * 100 : 0
+}
+export function teaMarginPct(p: Product): number {
+  return p.retailPrice > 0 ? (teaCost(p) / p.retailPrice) * 100 : 0
 }
 
 export const RAKSUL_STICKER_URL = 'https://raksul.com/print/sticker/'
@@ -57,6 +94,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'ASA-HOU Light Roast 100g Tin',
     category: '国内 缶',
     weight: '100g',
+    weightG: 100,
     retailPrice: 1200,
     dimensions: '直径75mm × H100mm',
     material: 'アルミ缶 + マット紙ラベル + アルミ蓋',
@@ -77,6 +115,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'YORU-HOU Dark Roast 100g Tin',
     category: '国内 缶',
     weight: '100g',
+    weightG: 100,
     retailPrice: 1400,
     dimensions: '直径75mm × H100mm',
     material: 'アルミ缶 + マット紙ラベル + マットブラック蓋',
@@ -97,6 +136,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'ASA-HOU Light Roast 200g Tin',
     category: '国内 缶',
     weight: '200g',
+    weightG: 200,
     retailPrice: 2200,
     dimensions: '直径90mm × H140mm',
     material: 'アルミ缶 + ラベル + 金トリム',
@@ -117,6 +157,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'YORU-HOU Dark Roast 200g Tin',
     category: '国内 缶',
     weight: '200g',
+    weightG: 200,
     retailPrice: 2500,
     dimensions: '直径90mm × H140mm',
     material: 'アルミ缶 + ラベル + 銅トリム',
@@ -137,6 +178,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Seasonal Honey Blend 100g Tin',
     category: '国内 缶',
     weight: '100g',
+    weightG: 100,
     retailPrice: 1500,
     dimensions: '直径75mm × H100mm',
     material: 'アルミ缶 + クリーム+蜂蜜色2トーン ラベル',
@@ -158,6 +200,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'ASA-HOU 50g Stand-up Pouch',
     category: '国内 袋',
     weight: '50g',
+    weightG: 50,
     retailPrice: 700,
     dimensions: '130mm × H180mm × マチ40mm',
     material: 'クラフト紙ジッパー袋',
@@ -178,6 +221,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'YORU-HOU 50g Stand-up Pouch',
     category: '国内 袋',
     weight: '50g',
+    weightG: 50,
     retailPrice: 800,
     dimensions: '130mm × H180mm × マチ40mm',
     material: 'クラフト紙ジッパー袋(濃色印刷)',
@@ -198,6 +242,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Commercial 500g Kraft Bag',
     category: '国内 袋',
     weight: '500g',
+    weightG: 500,
     retailPrice: 4500,
     dimensions: '200mm × H320mm',
     material: 'クラフト紙袋 + 金属クリップ',
@@ -218,6 +263,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Commercial 1kg Kraft Bag',
     category: '国内 袋',
     weight: '1000g',
+    weightG: 1000,
     retailPrice: 8000,
     dimensions: '260mm × H400mm',
     material: 'クラフト紙袋 + ミシン縫い + 穴付き持ち手',
@@ -238,6 +284,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Refill 100g Window Pouch',
     category: '国内 袋',
     weight: '100g',
+    weightG: 100,
     retailPrice: 950,
     dimensions: '150mm × H220mm + 透明窓 φ50mm',
     material: 'マット白ジッパー袋 + 透明窓',
@@ -259,6 +306,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Tasting Set 10g×2 (Click Post Compact)',
     category: 'お試しセット',
     weight: '20g (10g×2)',
+    weightG: 20,
     retailPrice: 500,
     dimensions: 'A6 ハガキカード 148×100mm 両面印刷 + 平袋 ×2',
     material: 'A6 ハガキ風カード(クラフト紙 250gsm)+ アルミ蒸着平袋 10g×2(ロゴなし)',
@@ -274,6 +322,19 @@ export const PRODUCTS: Product[] = [
       '【v2 コンパクト】原価 ¥35 (7%) 達成。A6 ハガキカード両面印刷でブランドを完結、シール代をゼロに。' +
       '厚さ約5mmでクリックポスト ¥185 対応。¥980 v2 と二段運用 — ¥500 v2 は新規 SNS 流入専用。' +
       '茶葉小袋はロゴ印刷せず、原価圧縮のため共通の平袋を使用。',
+    revisions: [
+      {
+        date: '2026-04-24',
+        field: 'design + cost',
+        before:
+          'v1: クラフト封筒 (120×80mm) + 半透明小袋 ×2 + 飲み方カード + シール 5 種 (60×40 楕円 + 30×30 ×2)',
+        after:
+          'v2: A6 ハガキ両面印刷 (148×100mm) + アルミ蒸着平袋 10g×2 (ロゴなし)。シール完全廃止。',
+        reason: '原価10%以下達成 + クリックポスト ¥185 対応',
+        beforeCost: 90,
+        afterCost: 35,
+      },
+    ],
     raksulLabels: [
       {
         title: 'A6 ハガキ表面',
@@ -298,6 +359,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Tasting Duo 25g×2',
     category: 'お試しセット',
     weight: '50g (25g×2)',
+    weightG: 50,
     retailPrice: 1000,
     dimensions: 'クラフト紙スリーブ箱 150×100×30mm + リボン',
     material: 'スリーブボックス + 小パウチ ×2 + 物語ガイド',
@@ -318,6 +380,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Family Tasting Set 50g×2',
     category: 'お試しセット',
     weight: '100g (50g×2)',
+    weightG: 100,
     retailPrice: 2000,
     dimensions: '化粧箱 200×140×40mm',
     material: '化粧箱(金箔押し) + パウチ ×2',
@@ -339,6 +402,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'GENMAICHA Light 50g (Export)',
     category: '海外 export tin',
     weight: '50g',
+    weightG: 50,
     retailPrice: 1800,
     dimensions: '直径60mm × H90mm',
     material: 'アルミ缶 + 英語ラベル + FDA表示風栄養図',
@@ -359,6 +423,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'GENMAICHA Light 100g (Export)',
     category: '海外 export tin',
     weight: '100g',
+    weightG: 100,
     retailPrice: 2800,
     dimensions: '直径75mm × H100mm',
     material: 'アルミ缶 + 英語ラベル + バーコード',
@@ -379,6 +444,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'GENMAICHA Light 200g (Export)',
     category: '海外 export tin',
     weight: '200g',
+    weightG: 200,
     retailPrice: 4500,
     dimensions: '直径90mm × H140mm',
     material: 'アルミ缶 + 英語ラベル + 金縁取り',
@@ -399,6 +465,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'GENMAICHA Dark 50g (Export)',
     category: '海外 export tin',
     weight: '50g',
+    weightG: 50,
     retailPrice: 1900,
     dimensions: '直径60mm × H90mm',
     material: '黒アルミ缶 + 銅色トリム + 英語ラベル',
@@ -419,6 +486,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'GENMAICHA Dark 100g (Export)',
     category: '海外 export tin',
     weight: '100g',
+    weightG: 100,
     retailPrice: 3000,
     dimensions: '直径75mm × H100mm',
     material: '黒アルミ缶 + エンボス焙漢字',
@@ -440,6 +508,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'HOU Discovery Box (3 roasts)',
     category: '海外 ギフト箱',
     weight: '150g (50g×3)',
+    weightG: 150,
     retailPrice: 6500,
     dimensions: '化粧箱 220×160×50mm',
     material: 'クラフト箱 + 50g缶 ×3 + 英語ガイド',
@@ -460,6 +529,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'HOU Premium Gift Box',
     category: '海外 ギフト箱',
     weight: '200g (100g×2)',
+    weightG: 200,
     retailPrice: 9800,
     dimensions: 'プレミアム化粧箱 280×200×80mm',
     material: '黒ラッカー箱 + 箔押し + シルクリボン + 100g缶 ×2 + 茶さじ',
@@ -480,6 +550,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'HOU Subscription Welcome Box',
     category: '海外 ギフト箱',
     weight: '100g (50g×2)',
+    weightG: 100,
     retailPrice: 4500,
     dimensions: '化粧箱 200×150×60mm',
     material: 'クラフト箱 + 50gパウチ ×2 + 茶こし + ストーリーレター',
@@ -501,6 +572,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Triangle Pyramid 5pc',
     category: 'ティーバッグ',
     weight: '15g (3g×5)',
+    weightG: 15,
     retailPrice: 480,
     dimensions: '化粧箱 120×100×30mm',
     material: '小箱 + 三角バッグ ×5 + 半透明個包装',
@@ -521,6 +593,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Triangle Pyramid 15pc',
     category: 'ティーバッグ',
     weight: '45g (3g×15)',
+    weightG: 45,
     retailPrice: 1280,
     dimensions: '化粧箱 160×120×50mm',
     material: '化粧箱 + 三角バッグ ×15',
@@ -541,6 +614,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Premium Individual 10pc',
     category: 'ティーバッグ',
     weight: '40g (4g×10)',
+    weightG: 40,
     retailPrice: 2200,
     dimensions: '木箱 180×120×60mm',
     material: '桐木箱 + 和紙個包装ティーバッグ ×10',
@@ -561,6 +635,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Hojicha × Genmaicha Blend 10pc',
     category: 'ティーバッグ',
     weight: '30g (3g×10)',
+    weightG: 30,
     retailPrice: 1180,
     dimensions: '化粧箱 160×120×40mm',
     material: '深緑+琥珀ツートン化粧箱 + 三角バッグ ×10',
@@ -582,6 +657,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Father Day Gift Set',
     category: 'ギフト・季節',
     weight: '100g + メッセージカード',
+    weightG: 100,
     retailPrice: 2800,
     dimensions: '化粧箱 200×140×80mm',
     material: '紺リボン化粧箱 + 100g缶 + カード',
@@ -602,6 +678,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Mother Day Gift Set',
     category: 'ギフト・季節',
     weight: '100g + 抹茶 + カード',
+    weightG: 100,
     retailPrice: 3200,
     dimensions: '化粧箱 200×140×80mm',
     material: 'カーネーション色リボン + 100g缶 + 抹茶ブレンド + カード',
@@ -622,6 +699,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Winter Limited Genmaicha Syrup 200ml',
     category: 'ギフト・季節',
     weight: '200ml',
+    weightG: 50,
     retailPrice: 1800,
     dimensions: 'ガラス瓶 直径60mm × H120mm',
     material: 'ガラス瓶 + クラフトラベル + 銅キャップ',
@@ -643,6 +721,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Round Logo Sticker φ60mm',
     category: 'シール単体',
     weight: 'シール単体',
+    weightG: 0,
     retailPrice: 0,
     dimensions: 'φ60mm 円形(ドブ3mm含めφ66mm)',
     material: 'マットコート紙 + UV クリア',
@@ -673,6 +752,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Rectangular Info Sticker 60×80mm',
     category: 'シール単体',
     weight: 'シール単体',
+    weightG: 0,
     retailPrice: 0,
     dimensions: '60×80mm 角丸(ドブ3mm含め66×86mm)',
     material: '耐水コート紙(食品表示用)',
@@ -704,6 +784,7 @@ export const PRODUCTS: Product[] = [
     nameEn: 'Roast Flight 4 Tea Bags (Click Post Compact)',
     category: 'お試しセット',
     weight: '20g (5g×4)',
+    weightG: 20,
     retailPrice: 980,
     dimensions: 'A5 二つ折りパンフ 105×148mm 折り後 + 内側ダイカット 4ポケット + 平袋 ×4',
     material: 'A5 厚紙(両面フルカラー印刷)+ 内側ダイカット切り込み + アルミ蒸着平袋 5g×4(ロゴなし)',
@@ -719,6 +800,19 @@ export const PRODUCTS: Product[] = [
       '【v2 コンパクト】原価 ¥75 (7.7%) 達成。A5 二つ折りパンフレットで箱・帯紙・小袋シールを全廃。' +
       'Raksul A5両面印刷 1 ジョブで完結し、Illustrator なしでも入稿可。' +
       '厚さ約10mmでクリックポスト ¥185 対応。¥500 v2 と二段運用。',
+    revisions: [
+      {
+        date: '2026-04-24',
+        field: 'design + cost',
+        before:
+          'v1: クラフト紙箱 (180×100×20mm) + 透明窓 + 帯紙 + 飲み方ガイドカード + 個包装シール 6 種',
+        after:
+          'v2: A5 二つ折りパンフレット (105×148mm 折後) + 内側 4 ポケット + アルミ蒸着平袋 5g×4 (ロゴなし)',
+        reason: '原価10%以下達成 + クリックポスト ¥185 対応 (旧設計は箱で 20mm 厚 → 不可)',
+        beforeCost: 200,
+        afterCost: 75,
+      },
+    ],
     raksulLabels: [
       {
         title: 'A5 二つ折り 表紙',
