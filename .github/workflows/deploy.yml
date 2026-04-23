@@ -34,4 +34,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          command: pages deploy dist --project-name=genmaicha-project --branch=main
+          # commit-message を明示で短く渡す (長文/絵文字混じりの message を
+          # CF API が UTF-8 不正として拒否する事象の回避)
+          command: pages deploy dist --project-name=genmaicha-project --branch=main --commit-hash=${{ github.sha }} --commit-message="deploy ${{ github.sha }}"
